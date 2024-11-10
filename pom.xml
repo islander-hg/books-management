@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.ckg</groupId>
+  <artifactId>books-management</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>books-management</name>
+  <description>Books management project for Spring Boot</description>
+
+  <modules>
+    <module>books-management-api</module>
+    <module>books-management-server</module>
+    <module>books-management-service</module>
+    <module>books-management-common</module>
+  </modules>
+
+  <properties>
+    <java.version>8</java.version>
+    <default.encode>UTF-8</default.encode>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <spring-boot.version>2.7.8</spring-boot.version>
+    <alibaba-nacos-config.version>2021.0.4.0</alibaba-nacos-config.version>
+    <druid-spring.version>1.2.16</druid-spring.version>
+    <mysql-connector-java.version>8.0.21</mysql-connector-java.version>
+    <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
+    <pagehelper-spring-boot-starter.version>1.4.1</pagehelper-spring-boot-starter.version>
+    <hutool.version>5.8.14</hutool.version>
+    <springdoc-openapi-ui.version>1.6.3</springdoc-openapi-ui.version>
+    <jwt.version>0.9.1</jwt.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- 本服务 API 模块  -->
+      <dependency>
+        <groupId>com.ckg</groupId>
+        <artifactId>books-management-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- 本服务 COMMON 模块  -->
+      <dependency>
+        <groupId>com.ckg</groupId>
+        <artifactId>books-management-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- 本服务 SERVER 模块  -->
+      <dependency>
+        <groupId>com.ckg</groupId>
+        <artifactId>books-management-server</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- 本服务 SERVICE 模块  -->
+      <dependency>
+        <groupId>com.ckg</groupId>
+        <artifactId>books-management-service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- springboot依赖 -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- nacos -->
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        <version>${alibaba-nacos-config.version}</version>
+      </dependency>
+
+      <!-- druid -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>${druid-spring.version}</version>
+      </dependency>
+
+      <!-- Mysql connector -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql-connector-java.version}</version>
+      </dependency>
+
+      <!-- MyBatis Plus -->
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-boot-starter</artifactId>
+        <version>${mybatis-plus-boot-starter.version}</version>
+      </dependency>
+
+      <!-- Pagehelper 分页插件 -->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper-spring-boot-starter.version}</version>
+      </dependency>
+
+      <!-- hutool工具集 -->
+      <dependency>
+        <groupId>cn.hutool</groupId>
+        <artifactId>hutool-core</artifactId>
+        <version>${hutool.version}</version>
+      </dependency>
+
+      <!-- Springdoc -->
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${springdoc-openapi-ui.version}</version>
+      </dependency>
+
+      <!-- jwt-->
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jwt.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>${default.encode}</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

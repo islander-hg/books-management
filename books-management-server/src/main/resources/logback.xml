@@ -1,0 +1,65 @@
+<configuration scan="false">
+  <springProperty scope="context" name="loggingDir" source="logging.dir"
+    defaultValue="/home/work/log"/>
+  <!-->同步日志</-->
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d %-5level %thread %logger{40} %L %msg%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="app" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${loggingDir}/@service_name@/server.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${loggingDir}/@service_name@/server.log.%d{yyyyMMddHH}</fileNamePattern>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d|%-5level|%X{trace_id}|%thread|%logger{40}|%msg%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="default" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${loggingDir}/@service_name@/default.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${loggingDir}/@service_name@/default.log.%d{yyyyMMdd}</fileNamePattern>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d|%-5level|%X{trace_id}|%thread|%logger{40}|%msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-->异步日志</-->
+  <appender name="app-async" class="ch.qos.logback.classic.AsyncAppender">
+    <discardingThreshold>0</discardingThreshold>
+    <queueSize>2048</queueSize>
+    <appender-ref ref="app"/>
+  </appender>
+  <appender name="default-async" class="ch.qos.logback.classic.AsyncAppender">
+    <discardingThreshold>0</discardingThreshold>
+    <queueSize>2048</queueSize>
+    <appender-ref ref="default"/>
+  </appender>
+
+  <logger name="org.springframework" additivity="false" level="INFO">
+    <appender-ref ref="console"/>
+  </logger>
+  <root level="INFO">
+    <!--        <appender-ref ref="default-async"/>-->
+    <appender-ref ref="console"/>
+  </root>
+  <springProfile name="production">
+    <logger name="cn.lingdong.information.ldit.pm" additivity="false" level="INFO">
+      <!--            <appender-ref ref="app-async"/>-->
+      <appender-ref ref="console"/>
+    </logger>
+  </springProfile>
+  <springProfile name="preview">
+    <logger name="cn.lingdong.information.ldit.pm" additivity="false" level="DEBUG">
+      <!--            <appender-ref ref="app-async"/>-->
+      <appender-ref ref="console"/>
+    </logger>
+  </springProfile>
+  <springProfile name="local,dev,test">
+    <logger name="cn.lingdong.information.ldit.pm" additivity="false" level="INFO">
+      <appender-ref ref="console"/>
+    </logger>
+  </springProfile>
+</configuration>

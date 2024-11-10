@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: books-management
+  profiles:
+    active: ${SPRING_PROFILE:local} # 不再通过 profiles 切换配置，不同的环境使用不同的 nacos 即可
+  config:
+    import:
+      - nacos:${spring.cloud.nacos.config.prefix}.${spring.cloud.nacos.config.file-extension}?group=${spring.cloud.nacos.config.group}
+  main:
+    web-application-type: servlet
+  #    allow-circular-references: true
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_ADDR}
+        namespace: ${NACOS_NAMESPACE}
+        group: ${NACOS_GROUP}
+        file-extension: yaml
+        prefix: ${NACOS_DATA_ID}
+  #        username: ${NACOS_USER}
+  #        password: ${NACOS_PASSWORD}
+  jackson:
+    serialization:
+      fail_on_empty_beans: false
+
