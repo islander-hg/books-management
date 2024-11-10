@@ -91,7 +91,7 @@ public class BookBorrowController {
      */
     @Operation(summary = "归还图书")
     @PreAuthorize("@ss.hasPermi('book-borrow;give-back')")
-    @PostMapping("/{id}")
+    @PutMapping("/{id}/give-back")
     public CommonResp giveBack(
             @PathVariable("id") Long id, @RequestBody ReturnBookBorrowReq returnReq) {
         bookBorrowOperateService.giveBack(id, returnReq);
