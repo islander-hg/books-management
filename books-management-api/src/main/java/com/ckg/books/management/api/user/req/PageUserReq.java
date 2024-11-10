@@ -1,6 +1,7 @@
 package com.ckg.books.management.api.user.req;
 
 import com.ckg.books.management.api.common.req.PageReq;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -17,20 +18,24 @@ public class PageUserReq extends PageReq {
     /**
      * 用户名（账号，模糊查询）
      */
+    @Schema(description = "用户名（账号，模糊查询）")
     private String username;
 
     /**
      * 用户昵称（模糊查询）
      */
+    @Schema(description = "用户昵称（模糊查询）")
     private String nickname;
 
     /**
      * 用户邮箱
      */
+    @Schema(description = "用户邮箱")
     private String email;
 
     /**
      * 性别，0-女 1-男 2-未知
      */
+    @Schema(description = "性别，0-女 1-男 2-未知")
     private Integer sex;
 }

@@ -1,5 +1,6 @@
 package com.ckg.books.management.api.common.resp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import lombok.Data;
 
@@ -15,11 +16,13 @@ public class BaseResp implements Serializable {
     /**
      * 状态码
      */
+    @Schema(description = "状态码")
     private int code;
 
     /**
      * 返回消息
      */
+    @Schema(description = "返回消息")
     private String message;
 
 

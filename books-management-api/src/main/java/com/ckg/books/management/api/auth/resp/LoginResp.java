@@ -1,5 +1,6 @@
 package com.ckg.books.management.api.auth.resp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,5 +17,6 @@ public class LoginResp {
     /**
      * 用户token
      */
+    @Schema(description = "用户token")
     private String token;
 }

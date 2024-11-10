@@ -1,5 +1,6 @@
 package com.ckg.books.management.api.common.resp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,6 +17,7 @@ public class CommonResp<T> extends BaseResp {
     /**
      * 返回数据
      */
+    @Schema(description = "返回数据")
     private T data;
 
     /**

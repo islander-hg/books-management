@@ -1,5 +1,6 @@
 package com.ckg.books.management.api.book.req;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,12 +20,14 @@ public class CreateBookBorrowReq extends BaseOperateBookBorrowReq {
     /**
      * 图书ID
      */
+    @Schema(description = "图书ID")
     @NotNull(message = "图书ID不能为空")
     private Long bookId;
 
     /**
      * 借阅数量
      */
+    @Schema(description = "借阅数量")
     @NotNull(message = "借阅数量不能为空")
     @Min(value = 1, message = "借阅数量不能小于1")
     private Integer borrowQuantity;

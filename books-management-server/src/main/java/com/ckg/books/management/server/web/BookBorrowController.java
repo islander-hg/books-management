@@ -11,6 +11,7 @@ import com.ckg.books.management.api.common.resp.PageResult;
 import com.ckg.books.management.service.sevice.book.BookBorrowOperateService;
 import com.ckg.books.management.service.sevice.book.BookBorrowQueryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -60,7 +61,8 @@ public class BookBorrowController {
      * @param updateReq 更新请求信息
      * @return 请求响应
      */
-    @Operation(summary = "修改图书借阅记录")
+    @Operation(summary = "修改图书借阅记录",
+            parameters = {@Parameter(name = "id", description = "图书借阅记录ID")})
     @PreAuthorize("@ss.hasPermi('book-borrow;update')")
     @PutMapping("/{id}")
     public CommonResp update(
@@ -75,7 +77,8 @@ public class BookBorrowController {
      * @param id 图书借阅记录ID
      * @return 请求响应
      */
-    @Operation(summary = "删除图书借阅记录")
+    @Operation(summary = "删除图书借阅记录",
+            parameters = {@Parameter(name = "id", description = "图书借阅记录ID")})
     @PreAuthorize("@ss.hasPermi('book-borrow;delete')")
     @DeleteMapping("/{id}")
     public CommonResp delete(@PathVariable("id") Long id) {
@@ -89,7 +92,8 @@ public class BookBorrowController {
      * @param id 图书借阅记录ID
      * @return 请求响应
      */
-    @Operation(summary = "归还图书")
+    @Operation(summary = "归还图书",
+            parameters = {@Parameter(name = "id", description = "图书借阅记录ID")})
     @PreAuthorize("@ss.hasPermi('book-borrow;give-back')")
     @PutMapping("/{id}/give-back")
     public CommonResp giveBack(
@@ -104,7 +108,8 @@ public class BookBorrowController {
      * @param id 图书借阅记录ID
      * @return 请求响应
      */
-    @Operation(summary = "获取图书借阅记录详情信息")
+    @Operation(summary = "获取图书借阅记录详情信息",
+            parameters = {@Parameter(name = "id", description = "图书借阅记录ID")})
     @PreAuthorize("@ss.hasPermi('book-borrow;get')")
     @GetMapping("/{id}")
     public CommonResp<GetBookBorrowResp> get(@PathVariable("id") Long id) {

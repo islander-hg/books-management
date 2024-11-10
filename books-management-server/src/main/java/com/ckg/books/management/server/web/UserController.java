@@ -10,6 +10,7 @@ import com.ckg.books.management.api.user.resp.PageUserItem;
 import com.ckg.books.management.service.sevice.user.UserOperateService;
 import com.ckg.books.management.service.sevice.user.UserQueryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -59,7 +60,8 @@ public class UserController {
      * @param updateReq 更新请求信息
      * @return 请求响应
      */
-    @Operation(summary = "修改用户")
+    @Operation(summary = "修改用户",
+            parameters = {@Parameter(name = "id", description = "用户ID")})
     @PreAuthorize("@ss.hasPermi('user:update')")
     @PutMapping("/{id}")
     public CommonResp update(
@@ -74,7 +76,8 @@ public class UserController {
      * @param id 用户ID
      * @return 请求响应
      */
-    @Operation(summary = "删除用户")
+    @Operation(summary = "删除用户",
+            parameters = {@Parameter(name = "id", description = "用户ID")})
     @PreAuthorize("@ss.hasPermi('user:delete')")
     @DeleteMapping("/{id}")
     public CommonResp delete(@PathVariable("id") Long id) {
@@ -88,7 +91,8 @@ public class UserController {
      * @param id 用户ID
      * @return 请求响应
      */
-    @Operation(summary = "获取用户详情信息")
+    @Operation(summary = "获取用户详情信息",
+            parameters = {@Parameter(name = "id", description = "用户ID")})
     @PreAuthorize("@ss.hasPermi('user:get')")
     @GetMapping("/{id}")
     public CommonResp<GetUserResp> get(@PathVariable("id") Long id) {

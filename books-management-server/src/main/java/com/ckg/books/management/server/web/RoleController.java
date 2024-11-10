@@ -10,6 +10,7 @@ import com.ckg.books.management.api.role.resp.PageRoleItem;
 import com.ckg.books.management.service.sevice.role.RoleOperateService;
 import com.ckg.books.management.service.sevice.role.RoleQueryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -59,7 +60,8 @@ public class RoleController {
      * @param updateReq 更新请求信息
      * @return 请求响应
      */
-    @Operation(summary = "修改角色")
+    @Operation(summary = "修改角色",
+            parameters = {@Parameter(name = "id", description = "角色ID")})
     @PreAuthorize("@ss.hasPermi('role;update')")
     @PutMapping("/{id}")
     public CommonResp update(
@@ -74,7 +76,8 @@ public class RoleController {
      * @param id 角色ID
      * @return 请求响应
      */
-    @Operation(summary = "删除角色")
+    @Operation(summary = "删除角色",
+            parameters = {@Parameter(name = "id", description = "角色ID")})
     @PreAuthorize("@ss.hasPermi('role;delete')")
     @DeleteMapping("/{id}")
     public CommonResp delete(@PathVariable("id") Long id) {
@@ -88,7 +91,8 @@ public class RoleController {
      * @param id 角色ID
      * @return 请求响应
      */
-    @Operation(summary = "获取角色详情信息")
+    @Operation(summary = "获取角色详情信息",
+            parameters = {@Parameter(name = "id", description = "角色ID")})
     @PreAuthorize("@ss.hasPermi('role;get')")
     @GetMapping("/{id}")
     public CommonResp<GetRoleResp> get(@PathVariable("id") Long id) {

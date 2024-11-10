@@ -1,5 +1,6 @@
 package com.ckg.books.management.api.common.req;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -23,11 +24,13 @@ public class SortField {
     /**
      * 字段
      */
+    @Schema(description = "字段")
     private String field;
 
     /**
      * 顺序
      */
+    @Schema(description = "顺序,asc-升序 desc-降序")
     private String order;
 
     public SortField() {

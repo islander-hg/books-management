@@ -10,6 +10,7 @@ import com.ckg.books.management.api.common.resp.PageResult;
 import com.ckg.books.management.service.sevice.book.BookOperateService;
 import com.ckg.books.management.service.sevice.book.BookQueryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -59,7 +60,8 @@ public class BookController {
      * @param updateReq 更新请求信息
      * @return 请求响应
      */
-    @Operation(summary = "修改图书")
+    @Operation(summary = "修改图书",
+            parameters = {@Parameter(name = "id", description = "图书ID")})
     @PreAuthorize("@ss.hasPermi('book:update')")
     @PutMapping("/{id}")
     public CommonResp update(
@@ -74,7 +76,8 @@ public class BookController {
      * @param id 图书ID
      * @return 请求响应
      */
-    @Operation(summary = "删除图书")
+    @Operation(summary = "删除图书",
+            parameters = {@Parameter(name = "id", description = "图书ID")})
     @PreAuthorize("@ss.hasPermi('book:delete')")
     @DeleteMapping("/{id}")
     public CommonResp delete(@PathVariable("id") Long id) {
@@ -88,7 +91,8 @@ public class BookController {
      * @param id 图书ID
      * @return 请求响应
      */
-    @Operation(summary = "获取图书详情信息")
+    @Operation(summary = "获取图书详情信息",
+            parameters = {@Parameter(name = "id", description = "图书ID")})
     @PreAuthorize("@ss.hasPermi('book:get')")
     @GetMapping("/{id}")
     public CommonResp<GetBookResp> get(@PathVariable("id") Long id) {

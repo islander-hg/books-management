@@ -1,5 +1,6 @@
 package com.ckg.books.management.api.common.resp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class PageResult<T> {
     /**
      * 分页列表数据
      */
+    @Schema(description = "分页列表数据")
     private List<T> items;
 
     /**

@@ -2,6 +2,7 @@ package com.ckg.books.management.api.book.req;
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -20,12 +21,14 @@ public class BaseOperateBookBorrowReq {
     /**
      * 用户ID
      */
+    @Schema(description = "用户ID")
     @NotNull(message = "用户ID不能为空")
     private Long userId;
 
     /**
      * 借阅时间
      */
+    @Schema(description = "借阅时间,格式：" + DatePattern.NORM_DATETIME_PATTERN)
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @NotNull(message = "借阅时间不能为空")
     private Date borrowTime;
@@ -33,6 +36,7 @@ public class BaseOperateBookBorrowReq {
     /**
      * 计划归还时间
      */
+    @Schema(description = "计划归还时间,格式：" + DatePattern.NORM_DATETIME_PATTERN)
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @NotNull(message = "计划归还时间不能为空")
     private Date planReturnTime;
@@ -40,12 +44,14 @@ public class BaseOperateBookBorrowReq {
     /**
      * 实际归还时间
      */
+    @Schema(description = "实际归还时间,格式：" + DatePattern.NORM_DATETIME_PATTERN)
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     private Date finalReturnTime;
 
     /**
      * 借阅操作人
      */
+    @Schema(description = "借阅操作人")
     @NotNull(message = "借阅操作人不能为空")
     private Long operator;
 }

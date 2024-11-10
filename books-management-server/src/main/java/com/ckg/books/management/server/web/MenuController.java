@@ -8,6 +8,7 @@ import com.ckg.books.management.common.domain.tree.TreeNode;
 import com.ckg.books.management.service.sevice.menu.MenuOperateService;
 import com.ckg.books.management.service.sevice.menu.MenuQueryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.annotation.Resource;
@@ -58,7 +59,8 @@ public class MenuController {
      * @param updateReq 更新请求信息
      * @return 请求响应
      */
-    @Operation(summary = "修改菜单")
+    @Operation(summary = "修改菜单",
+            parameters = {@Parameter(name = "id", description = "菜单ID")})
     @PreAuthorize("@ss.hasPermi('menu:update')")
     @PutMapping("/{id}")
     public CommonResp update(
@@ -73,7 +75,8 @@ public class MenuController {
      * @param id 菜单ID
      * @return 请求响应
      */
-    @Operation(summary = "删除菜单")
+    @Operation(summary = "删除菜单",
+            parameters = {@Parameter(name = "id", description = "菜单ID")})
     @PreAuthorize("@ss.hasPermi('menu:delete')")
     @DeleteMapping("/{id}")
     public CommonResp delete(@PathVariable("id") Long id) {
@@ -87,7 +90,8 @@ public class MenuController {
      * @param id 菜单ID
      * @return 请求响应
      */
-    @Operation(summary = "获取菜单详情信息")
+    @Operation(summary = "获取菜单详情信息",
+            parameters = {@Parameter(name = "id", description = "菜单ID")})
     @PreAuthorize("@ss.hasPermi('menu:get')")
     @GetMapping("/{id}")
     public CommonResp<GetMenuResp> get(@PathVariable("id") Long id) {
@@ -100,7 +104,8 @@ public class MenuController {
      * @param userId 用户ID
      * @return 请求响应
      */
-    @Operation(summary = "获取用户菜单树（用户权限范围内的可见的菜单）")
+    @Operation(summary = "获取用户菜单树（用户权限范围内的可见的菜单）",
+            parameters = {@Parameter(name = "id", description = "用户ID")})
     @PreAuthorize("@ss.hasPermi('menu:user-menu-tree')")
     @GetMapping("/user-menu-tree/{userId}")
     public CommonResp<List<TreeNode>> getUserMenuTree(@PathVariable("userId") Long userId) {
@@ -113,7 +118,8 @@ public class MenuController {
      * @param roleId 角色ID
      * @return 请求响应
      */
-    @Operation(summary = "获取角色菜单树（角色权限范围内的可见的菜单）")
+    @Operation(summary = "获取角色菜单树（角色权限范围内的可见的菜单）",
+            parameters = {@Parameter(name = "id", description = "角色ID")})
     @PreAuthorize("@ss.hasPermi('menu:role-menu-tree')")
     @GetMapping("/role-menu-tree/{roleId}")
     public CommonResp<List<TreeNode>> getRoleMenuTree(@PathVariable("roleId") Long roleId) {
