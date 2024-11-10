@@ -50,7 +50,7 @@ public class LoginController {
      * @return 当前登录用户详情信息
      */
     @Operation(summary = "获取当前登录用户详情信息")
-    @GetMapping("/cur_login_user")
+    @GetMapping("/cur-login-user")
     public CommonResp<GetUserResp> getCurLoginUser() {
         LoginUser loginUser = SecurityUtils.getLoginUser();
         return CommonResp.success(userQueryService.get(loginUser.getId()));
