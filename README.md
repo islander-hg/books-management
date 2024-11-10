@@ -36,7 +36,7 @@ API地址（需本地启动）：http://localhost:8080/swagger-ui/index.html
 
 ## 启动方法
 
-1. 创建 nacos 配置：启动 nacos 并创建配置，配置模版参考上图中的 nacos/nacos_config.template
+1. 创建 nacos 配置：启动 nacos 并创建配置（nacos 实际的 data id示例：books-management.yaml），配置内容参考上图中的 nacos/nacos_config.template
 
 2. 初始化 mysql ：启动 mysql 并在 mysql 中执行上图中的 sql目录下的 V1.0.0.sql 文件
 
