@@ -18,7 +18,7 @@ API地址（需本地启动）：http://localhost:8080/swagger-ui/index.html
 
 ## 架构说明
 
-![image-20241110153709185](.\images\image-20241110153709185.png)
+[![image-20241110153709185.png](https://i.postimg.cc/4NsLgXYP/image-20241110153709185.png)
 
 本系统有以下几个模块
 
