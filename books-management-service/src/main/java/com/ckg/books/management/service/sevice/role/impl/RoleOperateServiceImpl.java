@@ -9,6 +9,7 @@ import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.RoleEntity;
 import com.ckg.books.management.service.dao.repository.RoleMenuRespository;
 import com.ckg.books.management.service.dao.repository.RoleRespository;
+import com.ckg.books.management.service.dao.repository.UserRoleRespository;
 import com.ckg.books.management.service.dao.utils.EntityHelper;
 import com.ckg.books.management.service.sevice.role.RoleOperateService;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -36,6 +38,9 @@ public class RoleOperateServiceImpl implements RoleOperateService {
 
     @Resource
     private RoleMenuRespository roleMenuRespository;
+
+    @Resource
+    private UserRoleRespository userRoleRespository;
 
     @Resource
     private TransactionTemplate transactionTemplate;
@@ -118,20 +123,22 @@ public class RoleOperateServiceImpl implements RoleOperateService {
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Long id) {
         //1. 校验存在性 并 执行删除
         roleRespository.getById(id, true);
         boolean deleted = roleRespository.removeById(id);
-        if (deleted) {
-            return;
+        if (!deleted) {
+            roleRespository.getById(id, true);
+            throw ExceptionHelper
+                    .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
+                            "未知异常导致无法删除角色：{}", id);
         }
 
-        //2. 校验删除失败原因
-        roleRespository.getById(id, true);
-        throw ExceptionHelper
-                .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                        "未知异常导致无法删除角色：{}", id);
+        //2. 删除关联关系
+        roleMenuRespository.deleteByRoleId(id);
+        userRoleRespository.deleteByRoleId(id);
     }
 
     /**

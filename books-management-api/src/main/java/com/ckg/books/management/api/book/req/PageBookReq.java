@@ -5,6 +5,7 @@ import com.ckg.books.management.api.common.req.PageReq;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -91,4 +92,10 @@ public class PageBookReq extends PageReq {
      */
     @Schema(description = "状态，0-正常, 1-无效, 2-不允许借阅")
     private Integer status;
+
+    /**
+     * 类别ID列表
+     */
+    @Schema(description = "类别ID列表")
+    private List<Long> categoryIds;
 }

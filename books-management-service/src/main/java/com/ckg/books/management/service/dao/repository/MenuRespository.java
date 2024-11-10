@@ -48,4 +48,11 @@ public interface MenuRespository extends IService<MenuEntity> {
      */
     Set<String> findPermsByIdIn(Collection<Long> ids);
 
+    /**
+     * 是否有子节点
+     *
+     * @param id 菜单ID
+     * @return true-有子节点 false-无子节点
+     */
+    boolean hasChildren(Long id);
 }

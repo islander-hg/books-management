@@ -1,5 +1,6 @@
 package com.ckg.books.management.service.dao.repository.Impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ckg.books.management.api.common.resp.PageResult;
 import com.ckg.books.management.api.role.req.PageRoleReq;
@@ -9,6 +10,9 @@ import com.ckg.books.management.common.mapper.LambdaQueryWrapperX;
 import com.ckg.books.management.service.dao.entity.RoleEntity;
 import com.ckg.books.management.service.dao.mapper.RoleMapper;
 import com.ckg.books.management.service.dao.repository.RoleRespository;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
@@ -45,5 +49,13 @@ public class RoleRespositoryImpl
                         .likeIfPresent(RoleEntity::getRemark, pageReq.getRemark())
                         .orderByAsc(RoleEntity::getOrder)
                         .orderByDesc(RoleEntity::getUpdateTime));
+    }
+
+    @Override
+    public List<RoleEntity> findByIds(Collection<Long> ids) {
+        if (CollUtil.isEmpty(ids)) {
+            return Collections.emptyList();
+        }
+        return list(new LambdaQueryWrapperX<RoleEntity>().in(RoleEntity::getId, ids));
     }
 }

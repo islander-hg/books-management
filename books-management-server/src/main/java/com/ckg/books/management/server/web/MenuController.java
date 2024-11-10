@@ -105,7 +105,7 @@ public class MenuController {
      * @return 请求响应
      */
     @Operation(summary = "获取用户菜单树（用户权限范围内的可见的菜单）",
-            parameters = {@Parameter(name = "id", description = "用户ID")})
+            parameters = {@Parameter(name = "userId", description = "用户ID")})
     @PreAuthorize("@ss.hasPermi('menu:user-menu-tree')")
     @GetMapping("/user-menu-tree/{userId}")
     public CommonResp<List<TreeNode>> getUserMenuTree(@PathVariable("userId") Long userId) {
@@ -119,7 +119,7 @@ public class MenuController {
      * @return 请求响应
      */
     @Operation(summary = "获取角色菜单树（角色权限范围内的可见的菜单）",
-            parameters = {@Parameter(name = "id", description = "角色ID")})
+            parameters = {@Parameter(name = "roleId", description = "角色ID")})
     @PreAuthorize("@ss.hasPermi('menu:role-menu-tree')")
     @GetMapping("/role-menu-tree/{roleId}")
     public CommonResp<List<TreeNode>> getRoleMenuTree(@PathVariable("roleId") Long roleId) {

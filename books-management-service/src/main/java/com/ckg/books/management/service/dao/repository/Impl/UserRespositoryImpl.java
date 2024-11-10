@@ -1,5 +1,6 @@
 package com.ckg.books.management.service.dao.repository.Impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,11 +9,17 @@ import com.ckg.books.management.api.user.req.PageUserReq;
 import com.ckg.books.management.common.exception.BizErrorCodes;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.mapper.LambdaQueryWrapperX;
+import com.ckg.books.management.service.dao.entity.BookCategoryRelationEntity;
 import com.ckg.books.management.service.dao.entity.UserEntity;
+import com.ckg.books.management.service.dao.entity.UserRoleEntity;
 import com.ckg.books.management.service.dao.mapper.UserMapper;
 import com.ckg.books.management.service.dao.repository.UserRespository;
+import com.ckg.books.management.service.dao.repository.UserRoleRespository;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.annotation.Resource;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,6 +31,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserRespositoryImpl
         extends ServiceImpl<UserMapper, UserEntity> implements UserRespository {
+
+    @Lazy
+    @Resource
+    private UserRoleRespository userRoleRespository;
 
     @Override
     public UserEntity getById(Long id, boolean throwNotFoundError) {
@@ -63,8 +74,17 @@ public class UserRespositoryImpl
 
     @Override
     public PageResult<UserEntity> searchPage(PageUserReq pageReq) {
+        List<Long> userIds = null;
+        if (CollUtil.isNotEmpty(pageReq.getRoleIds())) {
+            userIds = userRoleRespository.findByRoleIdsIn(pageReq.getRoleIds())
+                    .stream().map(UserRoleEntity::getUserId).collect(Collectors.toList());
+            if (CollUtil.isEmpty(userIds)) {
+                return PageResult.empty();
+            }
+        }
         return getBaseMapper().selectPage(pageReq,
                 new LambdaQueryWrapperX<UserEntity>()
+                        .inIfPresent(UserEntity::getId, userIds)
                         .likeIfPresent(UserEntity::getUsername, pageReq.getUsername())
                         .likeIfPresent(UserEntity::getNickname, pageReq.getNickname())
                         .eqIfPresent(UserEntity::getEmail, pageReq.getEmail())

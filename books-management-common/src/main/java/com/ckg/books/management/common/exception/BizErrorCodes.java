@@ -49,6 +49,8 @@ public class BizErrorCodes {
             createOnce(BizErrorType.COMMON, 7); // 登录失败
     public static ErrorCode LOGIN_RESTRICTION = createOnce(BizErrorType.COMMON, 8); // 登录限制
 
+    public static ErrorCode DELETE_NODE_WITH_CHILD_NODES_IS_NOT_ALLOWED =
+            createOnce(BizErrorType.COMMON, 93); // 节点含子节点时不允许删除
     public static ErrorCode EMAIL_CAPTCHA_INVALID = createOnce(BizErrorType.COMMON, 94); // 邮件验证码不匹配
     public static ErrorCode EMAIL_CAPTCHA_EXPIRED = createOnce(BizErrorType.COMMON, 95); // 邮件验证码过期
     public static ErrorCode EMAIL_BUILD_FAILED = createOnce(BizErrorType.COMMON, 96); // 邮件构建失败

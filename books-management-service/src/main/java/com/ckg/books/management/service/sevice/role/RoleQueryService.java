@@ -4,6 +4,7 @@ import com.ckg.books.management.api.common.resp.PageResult;
 import com.ckg.books.management.api.role.req.PageRoleReq;
 import com.ckg.books.management.api.role.resp.GetRoleResp;
 import com.ckg.books.management.api.role.resp.PageRoleItem;
+import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
@@ -32,4 +33,12 @@ public interface RoleQueryService {
      * @return 分页结果
      */
     PageResult<PageRoleItem> searchPage(@Valid PageRoleReq pageReq);
+
+    /**
+     * 获取用户的角色信息列表
+     *
+     * @param userId 用户ID
+     * @return 用户角色信息列表
+     */
+    List<GetRoleResp> getUserRoles(@NotNull Long userId);
 }

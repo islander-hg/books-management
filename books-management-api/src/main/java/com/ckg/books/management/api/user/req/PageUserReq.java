@@ -2,6 +2,7 @@ package com.ckg.books.management.api.user.req;
 
 import com.ckg.books.management.api.common.req.PageReq;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -38,4 +39,10 @@ public class PageUserReq extends PageReq {
      */
     @Schema(description = "性别，0-女 1-男 2-未知")
     private Integer sex;
+
+    /**
+     * 角色ID列表
+     */
+    @Schema(description = "角色ID列表")
+    private List<Long> roleIds;
 }

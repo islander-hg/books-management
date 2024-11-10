@@ -1,5 +1,6 @@
 package com.ckg.books.management.service.dao.repository.Impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ckg.books.management.api.book.req.PageBookReq;
@@ -7,11 +8,17 @@ import com.ckg.books.management.api.common.resp.PageResult;
 import com.ckg.books.management.common.exception.BizErrorCodes;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.mapper.LambdaQueryWrapperX;
+import com.ckg.books.management.service.dao.entity.BookCategoryRelationEntity;
 import com.ckg.books.management.service.dao.entity.BookEntity;
 import com.ckg.books.management.service.dao.mapper.BookMapper;
+import com.ckg.books.management.service.dao.repository.BookCategoryRelationRespository;
+import com.ckg.books.management.service.dao.repository.BookCategoryRespository;
 import com.ckg.books.management.service.dao.repository.BookRespository;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.annotation.Resource;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,6 +30,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookRespositoryImpl
         extends ServiceImpl<BookMapper, BookEntity> implements BookRespository {
+
+    @Lazy
+    @Resource
+    private BookCategoryRelationRespository bookCategoryRelationRespository;
 
     @Override
     public BookEntity getById(Long id, boolean throwNotFoundError) {
@@ -44,8 +55,19 @@ public class BookRespositoryImpl
 
     @Override
     public PageResult<BookEntity> searchPage(PageBookReq pageReq) {
+        List<Long> bookIds = null;
+        if (CollUtil.isNotEmpty(pageReq.getCategoryIds())) {
+            bookIds = bookCategoryRelationRespository
+                    .findByCategoryIdIn(pageReq.getCategoryIds()).stream()
+                    .map(BookCategoryRelationEntity::getBookId).collect(Collectors.toList());
+            if (CollUtil.isEmpty(bookIds)) {
+                return PageResult.empty();
+            }
+        }
+
         return getBaseMapper().selectPage(pageReq,
                 new LambdaQueryWrapperX<BookEntity>()
+                        .inIfPresent(BookEntity::getId, bookIds)
                         .likeIfPresent(BookEntity::getName, pageReq.getName())
                         .likeIfPresent(BookEntity::getAuthor, pageReq.getAuthor())
                         .gtIfPresent(BookEntity::getAvailableQuantity,

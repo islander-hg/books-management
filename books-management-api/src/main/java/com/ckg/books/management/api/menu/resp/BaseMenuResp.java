@@ -34,6 +34,12 @@ public class BaseMenuResp extends BaseEntityResp {
     private Long parentId;
 
     /**
+     * 层级
+     */
+    @Schema(description = "层级")
+    private Integer level;
+
+    /**
      * 显示顺序
      */
     @Schema(description = "显示顺序")

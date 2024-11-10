@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ckg.books.management.api.common.resp.PageResult;
 import com.ckg.books.management.api.role.req.PageRoleReq;
 import com.ckg.books.management.service.dao.entity.RoleEntity;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 角色 Respository 接口实现
@@ -37,4 +39,12 @@ public interface RoleRespository extends IService<RoleEntity> {
      * @return 角色信息分页结果
      */
     PageResult<RoleEntity> searchPage(PageRoleReq pageReq);
+
+    /**
+     * 根据角色ID列表获取角色信息
+     *
+     * @param ids 角色ID列表
+     * @return 角色信息列表
+     */
+    List<RoleEntity> findByIds(Collection<Long> ids);
 }

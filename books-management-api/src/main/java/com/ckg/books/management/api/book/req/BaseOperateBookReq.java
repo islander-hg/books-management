@@ -6,6 +6,7 @@ import com.ckg.books.management.api.common.enums.BookStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -72,4 +73,10 @@ public class BaseOperateBookReq {
     @Schema(description = "状态，0-正常, 1-无效, 2-不允许借阅")
     @EnumValue(enumClass = BookStatus.class)
     private Integer status;
+
+    /**
+     * 授权关联的图书分类ID列表
+     */
+    @Schema(description = "授权关联的图书分类ID列表")
+    private List<Long> categoryIds;
 }

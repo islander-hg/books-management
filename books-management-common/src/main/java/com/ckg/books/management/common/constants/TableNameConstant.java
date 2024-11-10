@@ -39,6 +39,16 @@ public class TableNameConstant {
     public static final String BOOK = "book";
 
     /**
+     * 图书分类表
+     */
+    public static final String BOOK_CATEGORY = "book_category";
+
+    /**
+     * 图书和图书分类表
+     */
+    public static final String BOOK_CATEGORY_RELATION = "book_category_relation";
+
+    /**
      * 图书借阅记录表
      */
     public static final String BOOK_BORROW = "book_borrow";

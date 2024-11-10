@@ -1,5 +1,8 @@
 package com.ckg.books.management.api.user.resp;
 
+import com.ckg.books.management.api.role.resp.GetRoleResp;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,4 +16,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class GetUserResp extends BaseUserResp {
 
+    /**
+     * 用户角色列表
+     */
+    @Schema(description = "用户角色列表")
+    private List<GetRoleResp> roleList;
 }

@@ -22,11 +22,18 @@ public interface UserRoleRespository extends IService<UserRoleEntity> {
     void insertUserRole(Long userId, Collection<Long> roleIds);
 
     /**
-     * 通过用户ID删除用户橘色关联关系
+     * 通过用户ID删除用户角色关联关系
      *
      * @param userId 用户ID
      */
     void deleteByUserId(Long userId);
+
+    /**
+     * 通过角色ID删除用户角色关联关系
+     *
+     * @param roleId 角色ID
+     */
+    void deleteByRoleId(Long roleId);
 
     /**
      * 根据用户ID和角色ID获取用户角色关联信息
@@ -46,4 +53,11 @@ public interface UserRoleRespository extends IService<UserRoleEntity> {
      */
     List<UserRoleEntity> findByUserId(Long userId);
 
+    /**
+     * 根据角色ID列表获取用户角色关联信息列表
+     *
+     * @param roleIds 角色ID列表
+     * @return 用户角色关联信息列表
+     */
+    List<UserRoleEntity> findByRoleIdsIn(Collection<Long> roleIds);
 }

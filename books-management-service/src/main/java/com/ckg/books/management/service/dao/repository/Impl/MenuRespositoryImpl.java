@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ckg.books.management.common.exception.BizErrorCodes;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.mapper.LambdaQueryWrapperX;
+import com.ckg.books.management.service.dao.entity.BookCategoryEntity;
 import com.ckg.books.management.service.dao.entity.MenuEntity;
 import com.ckg.books.management.service.dao.mapper.MenuMapper;
 import com.ckg.books.management.service.dao.repository.MenuRespository;
@@ -27,12 +28,12 @@ public class MenuRespositoryImpl
 
     @Override
     public MenuEntity getById(Long id, boolean throwNotFoundError) {
-        MenuEntity book = getById(id);
-        if (null == book && throwNotFoundError) {
+        MenuEntity menu = getById(id);
+        if (null == menu && throwNotFoundError) {
             throw ExceptionHelper
                     .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "菜单ID：{} 不存在", id);
         }
-        return book;
+        return menu;
     }
 
     @Override
@@ -58,6 +59,13 @@ public class MenuRespositoryImpl
         return list(new LambdaQueryWrapperX<MenuEntity>()
                 .select(MenuEntity::getPerms).in(MenuEntity::getId, ids))
                 .stream().map(MenuEntity::getPerms).collect(Collectors.toSet());
+    }
+
+    @Override
+    public boolean hasChildren(Long id) {
+        return CollUtil.isNotEmpty(
+                list(new LambdaQueryWrapperX<MenuEntity>()
+                        .select(MenuEntity::getId).eq(MenuEntity::getParentId, id)));
     }
 
 }

@@ -22,6 +22,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -89,7 +90,7 @@ public class UserOperateServiceImpl implements UserOperateService {
         preprocessParams(updateReq);
 
         //2. 校验存在性和冲突
-        UserEntity user = userRespository.getById(id);
+        UserEntity user = userRespository.getById(id, true);
         verifyDataUniqueness(updateReq, null, id);
         // todo 校验角色ID是否在表中存在
 
@@ -123,20 +124,21 @@ public class UserOperateServiceImpl implements UserOperateService {
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Long id) {
         //1. 校验存在性 并 执行删除
         userRespository.getById(id, true);
         boolean deleted = userRespository.removeById(id);
-        if (deleted) {
-            return;
+        if (!deleted) {
+            userRespository.getById(id, true);
+            throw ExceptionHelper
+                    .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
+                            "未知异常导致无法删除用户：{}", id);
         }
 
-        //2. 校验删除失败原因
-        userRespository.getById(id, true);
-        throw ExceptionHelper
-                .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                        "未知异常导致无法删除用户：{}", id);
+        //2. 删除失败关系
+        userRoleRespository.deleteByUserId(id);
     }
 
     /**

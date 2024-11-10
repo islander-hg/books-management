@@ -46,6 +46,11 @@ public class RoleMenuRespositoryImpl
     }
 
     @Override
+    public void deleteByMenuId(Long menuID) {
+        remove(new LambdaQueryWrapper<RoleMenuEntity>().eq(RoleMenuEntity::getMenuId, menuID));
+    }
+
+    @Override
     public RoleMenuEntity getByUserIdAndRoleId(
             Long roleId, Long menuId, boolean throwNotFoundError) {
         RoleMenuEntity roleMenu =

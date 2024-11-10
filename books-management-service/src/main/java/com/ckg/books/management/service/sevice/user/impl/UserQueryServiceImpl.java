@@ -1,21 +1,21 @@
 package com.ckg.books.management.service.sevice.user.impl;
 
+import com.ckg.books.management.api.common.enums.UserStatus;
 import com.ckg.books.management.api.common.resp.PageResult;
 import com.ckg.books.management.api.user.req.PageUserReq;
 import com.ckg.books.management.api.user.resp.GetUserResp;
 import com.ckg.books.management.api.user.resp.PageUserItem;
 import com.ckg.books.management.common.domain.user.LoginUser;
-import com.ckg.books.management.api.common.enums.UserStatus;
 import com.ckg.books.management.common.exception.BizErrorCodes;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.UserEntity;
 import com.ckg.books.management.service.dao.repository.UserRespository;
 import com.ckg.books.management.service.sevice.auth.UserPermissionService;
+import com.ckg.books.management.service.sevice.role.RoleQueryService;
 import com.ckg.books.management.service.sevice.user.UserQueryService;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,13 +34,18 @@ public class UserQueryServiceImpl implements UserQueryService, UserDetailsServic
     @Resource
     private UserRespository userRespository;
 
-    @Autowired
+    @Resource
     private UserPermissionService userPermissionService;
+
+    @Resource
+    private RoleQueryService roleQueryService;
 
     @Override
     public GetUserResp get(Long id) {
         UserEntity userEntity = userRespository.getById(id, true);
-        return BeanHelper.copyProperties(userEntity, GetUserResp.class);
+        GetUserResp resp = BeanHelper.copyProperties(userEntity, GetUserResp.class);
+        resp.setRoleList(roleQueryService.getUserRoles(id));
+        return resp;
     }
 
     @Override
@@ -53,7 +58,7 @@ public class UserQueryServiceImpl implements UserQueryService, UserDetailsServic
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRespository.getByUsername(username,true);
+        UserEntity userEntity = userRespository.getByUsername(username, true);
         if (UserStatus.DISABLE.getCode().equals(userEntity.getStatus())) {
             throw ExceptionHelper
                     .create(BizErrorCodes.ACCOUNT_ABNORMALITY, "对不起，您的账号：{} 已停用", username);

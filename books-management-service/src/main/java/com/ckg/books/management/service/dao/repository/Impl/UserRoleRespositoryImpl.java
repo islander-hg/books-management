@@ -10,6 +10,7 @@ import com.ckg.books.management.service.dao.entity.UserRoleEntity;
 import com.ckg.books.management.service.dao.mapper.UserRoleMapper;
 import com.ckg.books.management.service.dao.repository.UserRoleRespository;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,11 @@ public class UserRoleRespositoryImpl
     }
 
     @Override
+    public void deleteByRoleId(Long roleId) {
+        remove(new LambdaQueryWrapper<UserRoleEntity>().eq(UserRoleEntity::getRoleId, roleId));
+    }
+
+    @Override
     public UserRoleEntity getByUserIdAndRoleId(
             Long userId, Long roleId, boolean throwNotFoundError) {
         UserRoleEntity userRole =
@@ -61,5 +67,14 @@ public class UserRoleRespositoryImpl
     public List<UserRoleEntity> findByUserId(Long userId) {
         return list(
                 new LambdaQueryWrapperX<UserRoleEntity>().eq(UserRoleEntity::getUserId, userId));
+    }
+
+    @Override
+    public List<UserRoleEntity> findByRoleIdsIn(Collection<Long> roleIds) {
+        if (CollUtil.isEmpty(roleIds)) {
+            return Collections.emptyList();
+        }
+        return list(
+                new LambdaQueryWrapperX<UserRoleEntity>().in(UserRoleEntity::getRoleId, roleIds));
     }
 }

@@ -54,6 +54,7 @@ create table menu
     `id`           BIGINT(20) NOT NULL auto_increment COMMENT '菜单ID',
     `name`         VARCHAR(50) NOT NULL COMMENT '菜单名称',
     `parent_id`    BIGINT(20) DEFAULT 0 COMMENT '父菜单ID',
+    `level`        INT(4) NOT NULL COMMENT '层级',
     `order`        INT(4) DEFAULT 0 COMMENT '显示顺序',
     `path`         VARCHAR(200)         DEFAULT '' COMMENT '路由地址',
     `component`    VARCHAR(255)         DEFAULT '' COMMENT '组件路径',
@@ -107,7 +108,36 @@ CREATE TABLE `book`
 ) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '图书信息表';
 
 -- ----------------------------
--- 7、图书借阅记录表
+-- 7、图书分类表
+-- ----------------------------
+create table book_category
+(
+    `id`          BIGINT(20) NOT NULL auto_increment COMMENT '图书分类ID',
+    `name`        VARCHAR(50) NOT NULL COMMENT '图书分类名称',
+    `parent_id`   BIGINT(20) DEFAULT 0 COMMENT '父分类ID',
+    `level`       INT(4) NOT NULL COMMENT '层级',
+    `order`       INT(4) DEFAULT 0 COMMENT '显示顺序',
+    `remark`      VARCHAR(500)         DEFAULT '' COMMENT '备注',
+    `creator`     VARCHAR(64) NULL DEFAULT NULL COMMENT '创建人',
+    `create_time` DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater`     VARCHAR(64) NULL DEFAULT NULL COMMENT '修改人',
+    `update_time` DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `deleted`     TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，1-是',
+    primary key (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '图书分类表';
+
+-- ----------------------------
+-- 8、图书和图书分类关联表
+-- ----------------------------
+create table book_category_relation
+(
+    book_id     bigint(20) NOT NULL COMMENT '图书ID',
+    category_id bigint(20) NOT NULL COMMENT '类别ID',
+    primary key (book_id, category_id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '图书和图书分类关联表';
+
+-- ----------------------------
+-- 9、图书借阅记录表
 -- ----------------------------
 CREATE TABLE `book_borrow`
 (
@@ -141,5 +171,5 @@ INSERT INTO `role` VALUES (1, '游客', 0, 0, '普普通通的旅人', '0', '202
 -- ----------------------------
 -- 初始化-菜单数据
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, '用户管理', 0, 0, '/user', '', '', 0, 0, 0, 0, '', '', '', '0', '2024-11-10 15:55:10', '0', '2024-11-10 15:55:10', 0);
-INSERT INTO `menu` VALUES (2, '角色管理', 0, 0, '/role', '', '', 0, 0, 0, 0, '', '', '', '0', '2024-11-10 15:57:44', '0', '2024-11-10 15:57:44', 0);
+INSERT INTO `menu` VALUES (1, '用户管理', 0, 1, 0, '/user', '', '', 0, 0, 0, 0, '', '', '', '0', '2024-11-10 15:55:10', '0', '2024-11-10 15:55:10', 0);
+INSERT INTO `menu` VALUES (2, '角色管理', 0, 1, 0, '/role', '', '', 0, 0, 0, 0, '', '', '', '0', '2024-11-10 15:57:44', '0', '2024-11-10 15:57:44', 0);

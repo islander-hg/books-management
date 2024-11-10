@@ -1,5 +1,6 @@
 package com.ckg.books.management.api.menu.req;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,4 +14,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class CreateMenuReq extends BaseOperateMenuReq {
 
+    /**
+     * 父菜单ID
+     */
+    @Schema(description = "父菜单ID")
+    private Long parentId;
 }

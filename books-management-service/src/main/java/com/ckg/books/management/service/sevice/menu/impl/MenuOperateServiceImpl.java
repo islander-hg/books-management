@@ -1,7 +1,6 @@
 package com.ckg.books.management.service.sevice.menu.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.ckg.books.management.api.menu.req.BaseOperateMenuReq;
 import com.ckg.books.management.api.menu.req.CreateMenuReq;
 import com.ckg.books.management.api.menu.req.UpdateMenuReq;
 import com.ckg.books.management.common.exception.BizErrorCodes;
@@ -9,6 +8,7 @@ import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.MenuEntity;
 import com.ckg.books.management.service.dao.repository.MenuRespository;
+import com.ckg.books.management.service.dao.repository.RoleMenuRespository;
 import com.ckg.books.management.service.dao.utils.EntityHelper;
 import com.ckg.books.management.service.sevice.menu.MenuOperateService;
 import javax.annotation.Resource;
@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 菜单新增、变更操作 Service 接口
@@ -30,16 +31,22 @@ public class MenuOperateServiceImpl implements MenuOperateService {
     @Resource
     private MenuRespository menuRespository;
 
+    @Resource
+    private RoleMenuRespository roleMenuRespository;
+
     @Override
     public void create(CreateMenuReq createReq) {
         //1. 参数预处理默认值
         createReq.setParentId(ObjectUtil.defaultIfNull(createReq.getParentId(), 0l));
 
         //2. 校验冲突
-        verifyDataUniqueness(createReq, null);
+        verifyDataUniqueness(createReq.getParentId(), createReq.getName(), null);
 
         //3. 创建
+        int level = createReq.getParentId().equals(0l) ? 1
+                : menuRespository.getById(createReq.getParentId(), true).getLevel() + 1;
         MenuEntity toBeCreatedEntity = BeanHelper.copyProperties(createReq, MenuEntity.class);
+        toBeCreatedEntity.setLevel(level);
         EntityHelper.fillBaseFieldValue(toBeCreatedEntity, true);
         try {
             boolean created = menuRespository.save(toBeCreatedEntity);
@@ -50,7 +57,7 @@ public class MenuOperateServiceImpl implements MenuOperateService {
             }
 
         } catch (DuplicateKeyException ex) {
-            verifyDataUniqueness(createReq, null);
+            verifyDataUniqueness(createReq.getParentId(), createReq.getName(), null);
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_CREATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                     "未知异常导致无法新增菜单：{}", createReq.getName());
         }
@@ -58,12 +65,9 @@ public class MenuOperateServiceImpl implements MenuOperateService {
 
     @Override
     public void update(Long id, UpdateMenuReq updateReq) {
-        //1. 填充默认值
-        updateReq.setParentId(ObjectUtil.defaultIfNull(updateReq.getParentId(), 0l));
-
         //2. 校验存在性和冲突
         MenuEntity menu = menuRespository.getById(id);
-        verifyDataUniqueness(updateReq, id);
+        verifyDataUniqueness(menu.getParentId(), updateReq.getName(), id);
 
         //3. 修改
         MenuEntity toBeUpdatedEntity = BeanHelper.copyProperties(updateReq, MenuEntity.class);
@@ -78,44 +82,62 @@ public class MenuOperateServiceImpl implements MenuOperateService {
                                 "未知异常导致无法修改菜单：{}", menu.getName());
             }
         } catch (DuplicateKeyException ex) {
-            verifyDataUniqueness(updateReq, id);
+            verifyDataUniqueness(menu.getParentId(), updateReq.getName(), id);
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                     "未知异常导致无法修改菜单：{}", menu.getName());
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Long id) {
-        //1. 校验存在性 并 执行删除
-        menuRespository.getById(id, true);
+        //1. 校验
+        verifyDeletable(id);
+
+        //2. 删除
         boolean deleted = menuRespository.removeById(id);
-        if (deleted) {
-            return;
+        if (!deleted) {
+            verifyDeletable(id);
+            throw ExceptionHelper
+                    .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
+                            "未知异常导致无法删除菜单：{}", id);
         }
 
-        //2. 校验删除失败原因
-        menuRespository.getById(id, true);
-        throw ExceptionHelper
-                .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                        "未知异常导致无法删除菜单：{}", id);
+        //3. 删除关联关系
+        roleMenuRespository.deleteByMenuId(id);
     }
 
     /**
      * 校验数据唯一性
      *
-     * @param operateReq 操作菜单请求信息
-     * @param excludeId  不在校验范围内的菜单ID
+     * @param parentId  父节点ID
+     * @param name      节点名称
+     * @param excludeId 不在校验范围内的菜单ID
      */
-    private void verifyDataUniqueness(
-            BaseOperateMenuReq operateReq, @Nullable Long excludeId) {
+    private void verifyDataUniqueness(Long parentId, String name, @Nullable Long excludeId) {
         MenuEntity menuEntity =
-                menuRespository
-                        .getByParentIdAndName(operateReq.getParentId(), operateReq.getName());
+                menuRespository.getByParentIdAndName(parentId, name);
         if (null == menuEntity || menuEntity.getId().equals(excludeId)) {
             return;
         }
         throw ExceptionHelper
-                .create(BizErrorCodes.TABLE_RECORD_DUPLICATE, "菜单：{} 已存在", operateReq.getName());
+                .create(BizErrorCodes.TABLE_RECORD_DUPLICATE, "菜单：{} 已存在", name);
+    }
+
+    /**
+     * 验证是否可删除
+     *
+     * @param id 菜单ID
+     */
+    private void verifyDeletable(Long id) {
+        //1. 节点存在
+        menuRespository.getById(id, true);
+        //2. 无子节点
+        if (menuRespository.hasChildren(id)) {
+            throw ExceptionHelper
+                    .create(BizErrorCodes.DELETE_NODE_WITH_CHILD_NODES_IS_NOT_ALLOWED,
+                            "该菜单下有子菜单，请先删除子菜单");
+        }
     }
 
 }

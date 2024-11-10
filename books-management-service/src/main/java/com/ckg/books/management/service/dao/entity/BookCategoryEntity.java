@@ -12,7 +12,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
- * 菜单
+ * 图书分类
  *
  * @author chenkaigui
  * @date 2024/11/9
@@ -21,22 +21,22 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@TableName(TableNameConstant.MENU)
-public class MenuEntity extends BaseEntity {
+@TableName(TableNameConstant.BOOK_CATEGORY)
+public class BookCategoryEntity extends BaseEntity {
 
     /**
-     * 菜单ID
+     * 分类ID
      */
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
-     * 菜单名称
+     * 分类名称
      */
     private String name;
 
     /**
-     * 父菜单ID
+     * 父分类ID
      */
     private Long parentId;
 
@@ -50,51 +50,6 @@ public class MenuEntity extends BaseEntity {
      */
     @TableField("`order`")
     private Integer order;
-
-    /**
-     * 路由地址
-     */
-    private String path;
-
-    /**
-     * 组件路径
-     */
-    private String component;
-
-    /**
-     * 路由参数
-     */
-    private String routeParams;
-
-    /**
-     * 是否为外链（0-否 1-是）
-     */
-    private Integer frameable;
-
-    /**
-     * 菜单类型（0-目录 1-菜单 2-按钮）
-     */
-    private Integer type;
-
-    /**
-     * 菜单状态（0-显示 1-隐藏）
-     */
-    private Integer visible;
-
-    /**
-     * 菜单状态（0-正常 1-停用）
-     */
-    private Integer status;
-
-    /**
-     * 权限标识
-     */
-    private String perms;
-
-    /**
-     * 菜单图标
-     */
-    private String icon;
 
     /**
      * 备注

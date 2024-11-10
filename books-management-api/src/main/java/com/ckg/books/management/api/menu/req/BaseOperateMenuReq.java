@@ -1,7 +1,6 @@
 package com.ckg.books.management.api.menu.req;
 
 import com.ckg.books.management.api.annotation.EnumValue;
-import com.ckg.books.management.api.common.enums.BookStatus;
 import com.ckg.books.management.api.common.enums.MenuFrameable;
 import com.ckg.books.management.api.common.enums.MenuStatus;
 import com.ckg.books.management.api.common.enums.MenuType;
@@ -27,12 +26,6 @@ public class BaseOperateMenuReq {
     @NotBlank(message = "菜单名不能为空")
     @Size(max = 50, message = "菜单名长度不允许超过50位字符")
     private String name;
-
-    /**
-     * 父菜单ID
-     */
-    @Schema(description = "父菜单ID")
-    private Long parentId;
 
     /**
      * 显示顺序

@@ -6,8 +6,12 @@ import com.ckg.books.management.api.role.resp.GetRoleResp;
 import com.ckg.books.management.api.role.resp.PageRoleItem;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.RoleEntity;
+import com.ckg.books.management.service.dao.entity.UserRoleEntity;
 import com.ckg.books.management.service.dao.repository.RoleRespository;
+import com.ckg.books.management.service.dao.repository.UserRoleRespository;
 import com.ckg.books.management.service.sevice.role.RoleQueryService;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,6 +29,9 @@ public class RoleQueryServiceImpl implements RoleQueryService {
     @Resource
     private RoleRespository roleRespository;
 
+    @Resource
+    private UserRoleRespository userRoleRespository;
+
     @Override
     public GetRoleResp get(Long id) {
         RoleEntity roleEntity = roleRespository.getById(id, true);
@@ -37,6 +44,15 @@ public class RoleQueryServiceImpl implements RoleQueryService {
         return new PageResult(
                 BeanHelper.copyWithCollection(pageResult.getItems(), PageRoleItem.class),
                 pageResult.getTotal());
+    }
+
+    @Override
+    public List<GetRoleResp> getUserRoles(Long userId) {
+        List<RoleEntity> roleEntities =
+                roleRespository.findByIds(
+                        userRoleRespository.findByUserId(userId).stream()
+                                .map(UserRoleEntity::getRoleId).collect(Collectors.toList()));
+        return BeanHelper.copyWithCollection(roleEntities,GetRoleResp.class);
     }
 
 }
