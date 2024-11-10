@@ -1,8 +1,8 @@
 package com.ckg.books.management.api.user.req;
 
-import com.ckg.books.management.api.annotation.EnumValue;
-import com.ckg.books.management.api.common.enums.UserSex;
-import com.ckg.books.management.api.common.enums.UserStatus;
+import com.ckg.books.management.common.annotation.EnumValue;
+import com.ckg.books.management.common.enums.UserSex;
+import com.ckg.books.management.common.enums.UserStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.constraints.NotBlank;

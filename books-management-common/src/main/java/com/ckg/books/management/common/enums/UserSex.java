@@ -1,4 +1,4 @@
-package com.ckg.books.management.api.common.enums;
+package com.ckg.books.management.common.enums;
 
 import lombok.Getter;
 

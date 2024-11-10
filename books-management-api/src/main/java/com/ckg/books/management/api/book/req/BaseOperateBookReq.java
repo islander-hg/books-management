@@ -1,8 +1,8 @@
 package com.ckg.books.management.api.book.req;
 
 import cn.hutool.core.date.DatePattern;
-import com.ckg.books.management.api.annotation.EnumValue;
-import com.ckg.books.management.api.common.enums.BookStatus;
+import com.ckg.books.management.common.annotation.EnumValue;
+import com.ckg.books.management.common.enums.BookStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;

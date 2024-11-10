@@ -2,7 +2,7 @@ package com.ckg.books.management.service.dao.repository;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ckg.books.management.api.book.req.PageBookReq;
-import com.ckg.books.management.api.common.resp.PageResult;
+import com.ckg.books.management.common.domain.resp.PageResult;
 import com.ckg.books.management.service.dao.entity.BookEntity;
 import java.util.List;
 

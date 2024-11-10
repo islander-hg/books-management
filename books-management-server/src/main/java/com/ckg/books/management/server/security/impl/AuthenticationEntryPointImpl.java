@@ -1,7 +1,7 @@
 package com.ckg.books.management.server.security.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.ckg.books.management.api.common.resp.CommonResp;
+import com.ckg.books.management.common.domain.resp.CommonResp;
 import com.ckg.books.management.common.utils.json.JsonUtils;
 import com.ckg.books.management.common.utils.servlet.ServletUtils;
 import java.io.Serializable;

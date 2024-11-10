@@ -1,23 +1,23 @@
-package com.ckg.books.management.api.common.enums;
+package com.ckg.books.management.common.enums;
 
 import lombok.Getter;
 
 /**
- * 菜单外链类型
+ * 菜单类型
  *
  * @author chenkaigui
  * @date 2024/11/10
  */
 @Getter
-public enum MenuFrameable {
-
-    NO(0, "否"),
-    YES(1, "是");
+public enum MenuType {
+    DIR(0, "目录"),
+    MENU(1, "菜单"),
+    BUTTON(2,"按钮");
 
     private final Integer code;
     private final String desc;
 
-    MenuFrameable(Integer code, String desc) {
+    MenuType(Integer code, String desc) {
         this.code = code;
         this.desc = desc;
     }

@@ -1,11 +1,11 @@
-package com.ckg.books.management.api.annotation;
+package com.ckg.books.management.common.annotation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.ckg.books.management.api.annotation.EnumValue.List;
-import com.ckg.books.management.api.validator.EnumValueConstraintValidator;
+import com.ckg.books.management.common.annotation.EnumValue.List;
+import com.ckg.books.management.common.validator.EnumValueConstraintValidator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;

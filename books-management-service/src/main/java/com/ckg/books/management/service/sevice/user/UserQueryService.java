@@ -1,6 +1,6 @@
 package com.ckg.books.management.service.sevice.user;
 
-import com.ckg.books.management.api.common.resp.PageResult;
+import com.ckg.books.management.common.domain.resp.PageResult;
 import com.ckg.books.management.api.user.req.PageUserReq;
 import com.ckg.books.management.api.user.resp.GetUserResp;
 import com.ckg.books.management.api.user.resp.PageUserItem;

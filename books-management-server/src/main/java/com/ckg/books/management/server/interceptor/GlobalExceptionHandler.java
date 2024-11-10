@@ -1,6 +1,6 @@
 package com.ckg.books.management.server.interceptor;
 
-import com.ckg.books.management.api.common.resp.CommonResp;
+import com.ckg.books.management.common.domain.resp.CommonResp;
 import com.ckg.books.management.common.exception.BizErrorCodes;
 import com.ckg.books.management.common.exception.BizException;
 import lombok.extern.slf4j.Slf4j;

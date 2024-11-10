@@ -1,7 +1,7 @@
 package com.ckg.books.management.server.web;
 
-import com.ckg.books.management.api.common.resp.CommonResp;
-import com.ckg.books.management.api.common.resp.PageResult;
+import com.ckg.books.management.common.domain.resp.CommonResp;
+import com.ckg.books.management.common.domain.resp.PageResult;
 import com.ckg.books.management.api.role.req.CreateRoleReq;
 import com.ckg.books.management.api.role.req.PageRoleReq;
 import com.ckg.books.management.api.role.req.UpdateRoleReq;

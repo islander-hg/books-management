@@ -16,37 +16,12 @@
   </properties>
 
   <dependencies>
-    <!-- validation -->
+    <!-- COMMON 模块依赖  -->
     <dependency>
-      <groupId>jakarta.validation</groupId>
-      <artifactId>jakarta.validation-api</artifactId>
+      <groupId>com.ckg</groupId>
+      <artifactId>books-management-common</artifactId>
     </dependency>
 
-    <!-- lombok -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-    </dependency>
-
-    <!-- httpcore -->
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.hutool</groupId>
-      <artifactId>hutool-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger.core.v3</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>2.1.12</version>
-      <scope>compile</scope>
-    </dependency>
   </dependencies>
 
 </project>

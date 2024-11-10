@@ -32,6 +32,7 @@
     <pagehelper-spring-boot-starter.version>1.4.1</pagehelper-spring-boot-starter.version>
     <hutool.version>5.8.14</hutool.version>
     <springdoc-openapi-ui.version>1.6.3</springdoc-openapi-ui.version>
+    <swagger-annotations.version>2.1.12</swagger-annotations.version>
     <jwt.version>0.9.1</jwt.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   </properties>
@@ -122,6 +123,11 @@
         <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-ui</artifactId>
         <version>${springdoc-openapi-ui.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>${swagger-annotations.version}</version>
       </dependency>
 
       <!-- jwt-->

@@ -1,6 +1,6 @@
 package com.ckg.books.management.server.web;
 
-import com.ckg.books.management.api.common.resp.CommonResp;
+import com.ckg.books.management.common.domain.resp.CommonResp;
 import com.ckg.books.management.api.menu.req.CreateMenuReq;
 import com.ckg.books.management.api.menu.req.UpdateMenuReq;
 import com.ckg.books.management.api.menu.resp.GetMenuResp;

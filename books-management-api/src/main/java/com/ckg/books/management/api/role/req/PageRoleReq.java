@@ -1,6 +1,6 @@
 package com.ckg.books.management.api.role.req;
 
-import com.ckg.books.management.api.common.req.PageReq;
+import com.ckg.books.management.common.domain.req.PageReq;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;

@@ -1,6 +1,6 @@
 package com.ckg.books.management.api.role.resp;
 
-import com.ckg.books.management.api.common.resp.BaseEntityResp;
+import com.ckg.books.management.common.domain.resp.BaseEntityResp;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;

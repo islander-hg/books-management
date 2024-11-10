@@ -1,10 +1,10 @@
 package com.ckg.books.management.api.menu.req;
 
-import com.ckg.books.management.api.annotation.EnumValue;
-import com.ckg.books.management.api.common.enums.MenuFrameable;
-import com.ckg.books.management.api.common.enums.MenuStatus;
-import com.ckg.books.management.api.common.enums.MenuType;
-import com.ckg.books.management.api.common.enums.MenuVisible;
+import com.ckg.books.management.common.annotation.EnumValue;
+import com.ckg.books.management.common.enums.MenuFrameable;
+import com.ckg.books.management.common.enums.MenuStatus;
+import com.ckg.books.management.common.enums.MenuType;
+import com.ckg.books.management.common.enums.MenuVisible;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

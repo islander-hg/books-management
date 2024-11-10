@@ -2,7 +2,7 @@ package com.ckg.books.management.server.web;
 
 import com.ckg.books.management.api.auth.req.LoginReq;
 import com.ckg.books.management.api.auth.resp.LoginResp;
-import com.ckg.books.management.api.common.resp.CommonResp;
+import com.ckg.books.management.common.domain.resp.CommonResp;
 import com.ckg.books.management.api.user.resp.GetUserResp;
 import com.ckg.books.management.common.domain.user.LoginUser;
 import com.ckg.books.management.common.utils.security.SecurityUtils;

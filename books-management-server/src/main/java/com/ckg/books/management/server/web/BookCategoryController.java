@@ -3,7 +3,7 @@ package com.ckg.books.management.server.web;
 import com.ckg.books.management.api.book.req.CreateBookCategoryReq;
 import com.ckg.books.management.api.book.req.UpdateBookCategoryReq;
 import com.ckg.books.management.api.book.resp.GetBookCategoryResp;
-import com.ckg.books.management.api.common.resp.CommonResp;
+import com.ckg.books.management.common.domain.resp.CommonResp;
 import com.ckg.books.management.common.domain.tree.TreeNode;
 import com.ckg.books.management.service.sevice.book.BookCategoryOperateService;
 import com.ckg.books.management.service.sevice.book.BookCategoryQueryService;

@@ -2,7 +2,7 @@ package com.ckg.books.management.service.dao.repository.Impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ckg.books.management.api.book.req.PageBookBorrowReq;
-import com.ckg.books.management.api.common.resp.PageResult;
+import com.ckg.books.management.common.domain.resp.PageResult;
 import com.ckg.books.management.common.exception.BizErrorCodes;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.mapper.LambdaQueryWrapperX;

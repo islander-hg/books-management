@@ -1,4 +1,4 @@
-package com.ckg.books.management.api.common.req;
+package com.ckg.books.management.common.domain.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

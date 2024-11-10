@@ -1,4 +1,4 @@
-package com.ckg.books.management.api.common.resp;
+package com.ckg.books.management.common.domain.resp;
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;

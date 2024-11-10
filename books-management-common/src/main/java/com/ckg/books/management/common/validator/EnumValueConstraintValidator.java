@@ -1,9 +1,9 @@
-package com.ckg.books.management.api.validator;
+package com.ckg.books.management.common.validator;
 
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
-import com.ckg.books.management.api.annotation.EnumValue;
+import com.ckg.books.management.common.annotation.EnumValue;
 import java.util.Collections;
 import java.util.List;
 import javax.validation.ConstraintValidator;

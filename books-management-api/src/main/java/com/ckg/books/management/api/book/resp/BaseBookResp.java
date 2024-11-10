@@ -1,7 +1,7 @@
 package com.ckg.books.management.api.book.resp;
 
 import cn.hutool.core.date.DatePattern;
-import com.ckg.books.management.api.common.resp.BaseEntityResp;
+import com.ckg.books.management.common.domain.resp.BaseEntityResp;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;

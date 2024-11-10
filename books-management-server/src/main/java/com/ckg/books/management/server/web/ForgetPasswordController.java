@@ -2,7 +2,7 @@ package com.ckg.books.management.server.web;
 
 import com.ckg.books.management.api.auth.req.FpwdChangePasswordReq;
 import com.ckg.books.management.api.auth.req.FpwdSendCaptchaReq;
-import com.ckg.books.management.api.common.resp.CommonResp;
+import com.ckg.books.management.common.domain.resp.CommonResp;
 import com.ckg.books.management.service.sevice.auth.ForgetPasswordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

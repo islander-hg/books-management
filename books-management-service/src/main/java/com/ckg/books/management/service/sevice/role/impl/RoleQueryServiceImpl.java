@@ -1,6 +1,6 @@
 package com.ckg.books.management.service.sevice.role.impl;
 
-import com.ckg.books.management.api.common.resp.PageResult;
+import com.ckg.books.management.common.domain.resp.PageResult;
 import com.ckg.books.management.api.role.req.PageRoleReq;
 import com.ckg.books.management.api.role.resp.GetRoleResp;
 import com.ckg.books.management.api.role.resp.PageRoleItem;

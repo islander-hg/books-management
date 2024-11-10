@@ -3,7 +3,7 @@ package com.ckg.books.management.service.sevice.book.impl;
 import com.ckg.books.management.api.book.req.PageBookBorrowReq;
 import com.ckg.books.management.api.book.resp.GetBookBorrowResp;
 import com.ckg.books.management.api.book.resp.PageBookBorrowItem;
-import com.ckg.books.management.api.common.resp.PageResult;
+import com.ckg.books.management.common.domain.resp.PageResult;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.BookBorrowEntity;
 import com.ckg.books.management.service.dao.repository.BookBorrowRespository;

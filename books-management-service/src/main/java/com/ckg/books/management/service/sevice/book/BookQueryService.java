@@ -3,7 +3,7 @@ package com.ckg.books.management.service.sevice.book;
 import com.ckg.books.management.api.book.req.PageBookReq;
 import com.ckg.books.management.api.book.resp.GetBookResp;
 import com.ckg.books.management.api.book.resp.PageBookItem;
-import com.ckg.books.management.api.common.resp.PageResult;
+import com.ckg.books.management.common.domain.resp.PageResult;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;

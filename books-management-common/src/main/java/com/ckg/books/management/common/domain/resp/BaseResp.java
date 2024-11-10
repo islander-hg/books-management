@@ -1,4 +1,4 @@
-package com.ckg.books.management.api.common.resp;
+package com.ckg.books.management.common.domain.resp;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;

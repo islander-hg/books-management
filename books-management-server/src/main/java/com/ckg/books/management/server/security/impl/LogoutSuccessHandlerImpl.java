@@ -1,7 +1,7 @@
 package com.ckg.books.management.server.security.impl;
 
 import com.alibaba.druid.support.json.JSONUtils;
-import com.ckg.books.management.api.common.resp.CommonResp;
+import com.ckg.books.management.common.domain.resp.CommonResp;
 import com.ckg.books.management.common.domain.user.LoginUser;
 import com.ckg.books.management.common.utils.servlet.ServletUtils;
 import com.ckg.books.management.service.sevice.auth.UserTokenService;

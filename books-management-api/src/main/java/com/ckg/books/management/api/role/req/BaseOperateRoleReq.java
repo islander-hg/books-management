@@ -1,8 +1,7 @@
 package com.ckg.books.management.api.role.req;
 
-import com.ckg.books.management.api.annotation.EnumValue;
-import com.ckg.books.management.api.common.enums.MenuStatus;
-import com.ckg.books.management.api.common.enums.RoleStatus;
+import com.ckg.books.management.common.annotation.EnumValue;
+import com.ckg.books.management.common.enums.RoleStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
