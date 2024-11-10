@@ -7,6 +7,7 @@ import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.BookEntity;
 import com.ckg.books.management.service.dao.repository.BookRespository;
+import com.ckg.books.management.service.dao.utils.EntityHelper;
 import com.ckg.books.management.service.sevice.book.BookOperateService;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,7 @@ public class BookOperateServiceImpl implements BookOperateService {
     @Override
     public void create(CreateBookReq createReq) {
         BookEntity toBeCreatedEntity = BeanHelper.copyProperties(createReq, BookEntity.class);
+        EntityHelper.fillBaseFieldValue(toBeCreatedEntity, true);
         boolean created = bookRespository.save(toBeCreatedEntity);
         if (!created) {
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_CREATE_TABLE_RECORD_BECAUSE_UNKNOWN,
@@ -43,6 +45,8 @@ public class BookOperateServiceImpl implements BookOperateService {
         //2. 修改
         BookEntity toBeUpdatedEntity = BeanHelper.copyProperties(updateReq, BookEntity.class);
         toBeUpdatedEntity.setId(id);
+        EntityHelper.fillBaseFieldValue(toBeUpdatedEntity, false);
+
         boolean updated = bookRespository.updateById(toBeUpdatedEntity);
         if (!updated) {
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,

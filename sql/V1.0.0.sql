@@ -59,7 +59,7 @@ create table menu
     `component`    VARCHAR(255)         DEFAULT '' COMMENT '组件路径',
     `route_params` VARCHAR(255)         DEFAULT '' COMMENT '路由参数',
     `frameable`    TINYINT(1) DEFAULT 0 COMMENT '是否为外链（0-否 1-是）',
-    `menu_type`    TINYINT(1) NOT NULL COMMENT '菜单类型（0-目录 1-菜单 2-按钮）',
+    `type`         TINYINT(1) NOT NULL COMMENT '菜单类型（0-目录 1-菜单 2-按钮）',
     `visible`      TINYINT(1) DEFAULT 0 COMMENT '菜单状态（0-显示 1-隐藏）',
     `status`       TINYINT(1) DEFAULT 0 COMMENT '菜单状态（0-正常 1-停用）',
     `perms`        VARCHAR(100)         DEFAULT '' COMMENT '权限标识',

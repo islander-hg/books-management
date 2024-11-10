@@ -67,7 +67,7 @@ public class BaseMenuResp extends BaseEntityResp {
      * 菜单类型（0-目录 1-菜单 2-按钮）
      */
     @Schema(description = "菜单类型（0-目录 1-菜单 2-按钮）")
-    private Integer menuType;
+    private Integer type;
 
     /**
      * 菜单状态（0-显示 1-隐藏）

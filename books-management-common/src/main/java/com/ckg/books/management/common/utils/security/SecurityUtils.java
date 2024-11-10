@@ -28,6 +28,15 @@ public class SecurityUtils {
     }
 
     /**
+     * 获取登录用户ID
+     *
+     * @return 登录用户ID
+     */
+    public static Long getLoginUserId() {
+        return getLoginUser().getId();
+    }
+
+    /**
      * 获取Authentication
      *
      * @return {@link Authentication}
@@ -46,11 +55,6 @@ public class SecurityUtils {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
     }
-
-    public static void main(String[] args) {
-      System.out.println(  encryptPassword("admin"));
-    }
-
 
     /**
      * 判断密码是否相同

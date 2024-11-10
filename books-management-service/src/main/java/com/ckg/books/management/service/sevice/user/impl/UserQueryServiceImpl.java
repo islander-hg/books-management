@@ -5,7 +5,7 @@ import com.ckg.books.management.api.user.req.PageUserReq;
 import com.ckg.books.management.api.user.resp.GetUserResp;
 import com.ckg.books.management.api.user.resp.PageUserItem;
 import com.ckg.books.management.common.domain.user.LoginUser;
-import com.ckg.books.management.common.enums.UserStatus;
+import com.ckg.books.management.api.common.enums.UserStatus;
 import com.ckg.books.management.common.exception.BizErrorCodes;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.spring.BeanHelper;

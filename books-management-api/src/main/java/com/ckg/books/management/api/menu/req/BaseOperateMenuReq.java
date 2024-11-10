@@ -1,5 +1,11 @@
 package com.ckg.books.management.api.menu.req;
 
+import com.ckg.books.management.api.annotation.EnumValue;
+import com.ckg.books.management.api.common.enums.BookStatus;
+import com.ckg.books.management.api.common.enums.MenuFrameable;
+import com.ckg.books.management.api.common.enums.MenuStatus;
+import com.ckg.books.management.api.common.enums.MenuType;
+import com.ckg.books.management.api.common.enums.MenuVisible;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -56,24 +62,28 @@ public class BaseOperateMenuReq {
      * 是否为外链（0-否 1-是）
      */
     @Schema(description = "是否为外链（0-否 1-是）")
+    @EnumValue(enumClass = MenuFrameable.class)
     private Integer frameable;
 
     /**
      * 菜单类型（0-目录 1-菜单 2-按钮）
      */
     @Schema(description = "菜单类型（0-目录 1-菜单 2-按钮）")
-    private Integer menuType;
+    @EnumValue(enumClass = MenuType.class)
+    private Integer type;
 
     /**
      * 菜单状态（0-显示 1-隐藏）
      */
     @Schema(description = "菜单状态（0-显示 1-隐藏）")
+    @EnumValue(enumClass = MenuVisible.class)
     private Integer visible;
 
     /**
      * 菜单状态（0-正常 1-停用）
      */
     @Schema(description = "菜单状态（0-正常 1-停用）")
+    @EnumValue(enumClass = MenuStatus.class)
     private Integer status;
 
     /**

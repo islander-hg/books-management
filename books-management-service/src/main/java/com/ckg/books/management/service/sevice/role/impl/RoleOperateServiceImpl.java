@@ -9,6 +9,7 @@ import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.RoleEntity;
 import com.ckg.books.management.service.dao.repository.RoleMenuRespository;
 import com.ckg.books.management.service.dao.repository.RoleRespository;
+import com.ckg.books.management.service.dao.utils.EntityHelper;
 import com.ckg.books.management.service.sevice.role.RoleOperateService;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
@@ -51,6 +52,8 @@ public class RoleOperateServiceImpl implements RoleOperateService {
 
         //3. 创建
         RoleEntity toBeCreatedEntity = BeanHelper.copyProperties(createReq, RoleEntity.class);
+        EntityHelper.fillBaseFieldValue(toBeCreatedEntity, true);
+
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
@@ -89,6 +92,7 @@ public class RoleOperateServiceImpl implements RoleOperateService {
         //3. 修改
         RoleEntity toBeUpdatedEntity = BeanHelper.copyProperties(updateReq, RoleEntity.class);
         toBeUpdatedEntity.setId(id);
+        EntityHelper.fillBaseFieldValue(toBeUpdatedEntity, false);
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override

@@ -13,6 +13,7 @@ import com.ckg.books.management.service.dao.entity.BookEntity;
 import com.ckg.books.management.service.dao.repository.BookBorrowRespository;
 import com.ckg.books.management.service.dao.repository.BookRespository;
 import com.ckg.books.management.service.dao.repository.UserRespository;
+import com.ckg.books.management.service.dao.utils.EntityHelper;
 import com.ckg.books.management.service.sevice.book.BookBorrowOperateService;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +54,7 @@ public class BookBorrowOperateServiceImpl implements BookBorrowOperateService {
         //2. 创建
         BookBorrowEntity toBeCreatedEntity =
                 BeanHelper.copyProperties(createReq, BookBorrowEntity.class);
+        EntityHelper.fillBaseFieldValue(toBeCreatedEntity, true);
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
@@ -86,6 +88,7 @@ public class BookBorrowOperateServiceImpl implements BookBorrowOperateService {
         BookBorrowEntity toBeUpdatedEntity =
                 BeanHelper.copyProperties(updateReq, BookBorrowEntity.class);
         toBeUpdatedEntity.setId(id);
+        EntityHelper.fillBaseFieldValue(toBeUpdatedEntity, false);
 
         boolean updated = bookBorrowRespository.updateById(toBeUpdatedEntity);
         if (!updated) {

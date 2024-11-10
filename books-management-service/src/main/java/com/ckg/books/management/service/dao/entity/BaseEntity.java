@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * Entity 基础类
@@ -12,6 +13,7 @@ import lombok.Data;
  * @date 2024/11/7
  */
 @Data
+@Accessors(chain = true)
 public class BaseEntity {
 
     /**

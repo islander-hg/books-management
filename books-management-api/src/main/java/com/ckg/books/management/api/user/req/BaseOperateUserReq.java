@@ -1,5 +1,8 @@
 package com.ckg.books.management.api.user.req;
 
+import com.ckg.books.management.api.annotation.EnumValue;
+import com.ckg.books.management.api.common.enums.UserSex;
+import com.ckg.books.management.api.common.enums.UserStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
@@ -36,6 +39,7 @@ public class BaseOperateUserReq {
      * 性别，0-女 1-男 2-未知
      */
     @Schema(description = "性别，0-女 1-男 2-未知")
+    @EnumValue(enumClass = UserSex.class)
     @NotNull(message = "用户性别不能为空")
     private Integer sex;
 
@@ -43,6 +47,7 @@ public class BaseOperateUserReq {
      * 状态，0-正常, 1-停用
      */
     @Schema(description = "状态，0-正常, 1-停用")
+    @EnumValue(enumClass = UserStatus.class)
     @NotNull(message = "用户状态不能为空")
     private Integer status;
 

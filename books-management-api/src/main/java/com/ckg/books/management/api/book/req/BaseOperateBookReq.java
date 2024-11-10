@@ -1,6 +1,8 @@
 package com.ckg.books.management.api.book.req;
 
 import cn.hutool.core.date.DatePattern;
+import com.ckg.books.management.api.annotation.EnumValue;
+import com.ckg.books.management.api.common.enums.BookStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
@@ -68,5 +70,6 @@ public class BaseOperateBookReq {
      * 状态，0-正常, 1-无效, 2-不允许借阅
      */
     @Schema(description = "状态，0-正常, 1-无效, 2-不允许借阅")
+    @EnumValue(enumClass = BookStatus.class)
     private Integer status;
 }

@@ -12,6 +12,7 @@ import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.UserEntity;
 import com.ckg.books.management.service.dao.repository.UserRespository;
 import com.ckg.books.management.service.dao.repository.UserRoleRespository;
+import com.ckg.books.management.service.dao.utils.EntityHelper;
 import com.ckg.books.management.service.sevice.user.UserOperateService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,6 +57,8 @@ public class UserOperateServiceImpl implements UserOperateService {
         UserEntity toBeCreatedEntity = BeanHelper.copyProperties(createReq, UserEntity.class);
         toBeCreatedEntity
                 .setPassword(SecurityUtils.encryptPassword(toBeCreatedEntity.getPassword()));
+        EntityHelper.fillBaseFieldValue(toBeCreatedEntity, true);
+
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
@@ -93,6 +96,7 @@ public class UserOperateServiceImpl implements UserOperateService {
         //3. 修改
         UserEntity toBeUpdatedEntity = BeanHelper.copyProperties(updateReq, UserEntity.class);
         toBeUpdatedEntity.setId(id);
+        EntityHelper.fillBaseFieldValue(toBeUpdatedEntity, false);
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override

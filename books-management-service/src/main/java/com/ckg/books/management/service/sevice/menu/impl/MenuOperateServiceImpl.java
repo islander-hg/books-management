@@ -9,6 +9,7 @@ import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.MenuEntity;
 import com.ckg.books.management.service.dao.repository.MenuRespository;
+import com.ckg.books.management.service.dao.utils.EntityHelper;
 import com.ckg.books.management.service.sevice.menu.MenuOperateService;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,7 @@ public class MenuOperateServiceImpl implements MenuOperateService {
 
         //3. 创建
         MenuEntity toBeCreatedEntity = BeanHelper.copyProperties(createReq, MenuEntity.class);
+        EntityHelper.fillBaseFieldValue(toBeCreatedEntity, true);
         try {
             boolean created = menuRespository.save(toBeCreatedEntity);
             if (!created) {
@@ -66,6 +68,8 @@ public class MenuOperateServiceImpl implements MenuOperateService {
         //3. 修改
         MenuEntity toBeUpdatedEntity = BeanHelper.copyProperties(updateReq, MenuEntity.class);
         toBeUpdatedEntity.setId(id);
+        EntityHelper.fillBaseFieldValue(toBeUpdatedEntity, false);
+
         try {
             boolean updated = menuRespository.updateById(toBeUpdatedEntity);
             if (!updated) {
