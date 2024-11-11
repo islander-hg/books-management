@@ -52,4 +52,8 @@ API地址（需本地启动）：http://localhost:8080/swagger-ui/index.html
    -DNACOS_DATA_ID=books-management
    ```
 
+5. 调用http://localhost:8080/login 接口获取token，超管账密：admin/admin
+
+6. 其他业务相关接口调用时需添加HTTP请求头 Authorization，值是 步骤5中返回的token值
+
    
