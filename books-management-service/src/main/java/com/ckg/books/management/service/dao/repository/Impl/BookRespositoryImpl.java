@@ -39,7 +39,7 @@ public class BookRespositoryImpl
         BookEntity book = getById(id);
         if (null == book && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "图书ID：{} 不存在", id);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "图书不存在");
         }
         return book;
     }

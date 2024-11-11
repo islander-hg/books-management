@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.ckg.books.management.common.constants.EntityFieldConstant;
 import com.ckg.books.management.common.constants.TableNameConstant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -102,8 +103,8 @@ public class MenuEntity extends BaseEntity {
     private String remark;
 
     /**
-     * 删除标识；0-未删除，1-已删除
+     * 删除标识；0-未删除，值为ID时-已删除
      */
-    @TableLogic
-    private Boolean deleted;
+    @TableLogic(delval = EntityFieldConstant.ID)
+    private Long deleted;
 }

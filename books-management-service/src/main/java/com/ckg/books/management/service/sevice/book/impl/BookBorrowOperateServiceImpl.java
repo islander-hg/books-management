@@ -65,13 +65,13 @@ public class BookBorrowOperateServiceImpl implements BookBorrowOperateService {
                     verifyBorrowQuantity(createReq);
                     throw ExceptionHelper
                             .create(BizErrorCodes.UNABLE_CREATE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                                    "未知异常导致无法新增图书借阅数量，图书ID{}", createReq.getBookId());
+                                    "未知异常导致无法新增图书借阅数量");
                 }
                 boolean created = bookBorrowRespository.save(toBeCreatedEntity);
                 if (!created) {
                     throw ExceptionHelper
                             .create(BizErrorCodes.UNABLE_CREATE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                                    "未知异常导致无法新增图书借阅记录，图书ID{}", createReq.getBookId());
+                                    "未知异常导致无法新增图书借阅记录");
                 }
             }
         });
@@ -93,7 +93,7 @@ public class BookBorrowOperateServiceImpl implements BookBorrowOperateService {
         boolean updated = bookBorrowRespository.updateById(toBeUpdatedEntity);
         if (!updated) {
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                    "未知异常导致无法修改图书借阅记录，借阅记录ID：{}", id);
+                    "未知异常导致无法修改图书借阅记录");
         }
     }
 
@@ -109,7 +109,7 @@ public class BookBorrowOperateServiceImpl implements BookBorrowOperateService {
 //
 //        //2. 校验删除失败原因
 //        bookBorrowRespository.getById(id, true);
-//        throw new ServiceException("未知异常导致无法删除图书借阅记录：{}", id);
+//        throw new ServiceException("未知异常导致无法删除图书借阅记录");
     }
 
     @Override
@@ -128,7 +128,7 @@ public class BookBorrowOperateServiceImpl implements BookBorrowOperateService {
                     verifyReturnQuantityAndGetRecord(id, returnReq);
                     throw ExceptionHelper
                             .create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                                    "未知异常导致无法新增图书归还数量，图书ID：{}", bookBorrow.getBookId());
+                                    "未知异常导致无法新增图书归还数量");
                 }
 
                 boolean decreased =
@@ -137,7 +137,7 @@ public class BookBorrowOperateServiceImpl implements BookBorrowOperateService {
                 if (!decreased) {
                     throw ExceptionHelper
                             .create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                                    "未知异常导致无法新增图书可借阅数量，图书ID：{}", bookBorrow.getBookId());
+                                    "未知异常导致无法新增图书可借阅数量");
                 }
             }
         });

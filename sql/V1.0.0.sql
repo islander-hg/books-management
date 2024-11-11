@@ -14,8 +14,9 @@ CREATE TABLE user
     `create_time` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updater`     VARCHAR(64) NULL DEFAULT NULL COMMENT '修改人',
     `update_time` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `deleted`     TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，1-是',
-    PRIMARY KEY (`id`)
+    `deleted`     BIGINT(20) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，值为ID时-已删除',
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `uk_username_deleted` ( `username`,`deleted`)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '用户信息表';
 
 -- ----------------------------
@@ -32,8 +33,9 @@ create table role
     `create_time` DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updater`     VARCHAR(64) NULL DEFAULT NULL COMMENT '修改人',
     `update_time` DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `deleted`     TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，1-是',
-    primary key (id)
+    `deleted`     BIGINT(20) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，值为ID时-已删除',
+    primary key (id),
+    UNIQUE INDEX `uk_name_deleted` ( `name`,`deleted`)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '角色信息表';
 
 -- ----------------------------
@@ -70,8 +72,9 @@ create table menu
     `create_time`  DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updater`      VARCHAR(64) NULL DEFAULT NULL COMMENT '修改人',
     `update_time`  DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `deleted`      TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，1-是',
-    primary key (id)
+    `deleted`      BIGINT(20) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，值为ID时-已删除',
+    primary key (id),
+    UNIQUE INDEX `uk_parentid_name_deleted` ( `parent_id`,`name`,`deleted`)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '菜单表';
 
 -- ----------------------------
@@ -103,7 +106,7 @@ CREATE TABLE `book`
     `create_time`        DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updater`            VARCHAR(64) NULL DEFAULT NULL COMMENT '修改人',
     `update_time`        DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `deleted`            TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，1-是',
+    `deleted`            BIGINT(20) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，值为ID时-已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '图书信息表';
 
@@ -122,8 +125,9 @@ create table book_category
     `create_time` DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updater`     VARCHAR(64) NULL DEFAULT NULL COMMENT '修改人',
     `update_time` DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `deleted`     TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，1-是',
-    primary key (id)
+    `deleted`     BIGINT(20) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，值为ID时-已删除',
+    primary key (id),
+    UNIQUE INDEX `uk_parentid_name_deleted` ( `parent_id`,`name`,`deleted`)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '图书分类表';
 
 -- ----------------------------
@@ -154,7 +158,7 @@ CREATE TABLE `book_borrow`
     `create_time`       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updater`           VARCHAR(64) NULL DEFAULT NULL COMMENT '修改人',
     `update_time`       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `deleted`           TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，1-是',
+    `deleted`           BIGINT(20) NOT NULL DEFAULT 0 COMMENT '是否删除，0-否，值为ID时-已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COMMENT = '图书信息表';
 

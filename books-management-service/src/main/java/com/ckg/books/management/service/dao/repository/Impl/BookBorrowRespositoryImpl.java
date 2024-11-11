@@ -27,7 +27,7 @@ public class BookBorrowRespositoryImpl
         BookBorrowEntity bookBorrow = getById(id);
         if (null == bookBorrow && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "图书借阅记录ID：{} 不存在", id);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "图书借阅记录不存在");
         }
         return bookBorrow;
     }

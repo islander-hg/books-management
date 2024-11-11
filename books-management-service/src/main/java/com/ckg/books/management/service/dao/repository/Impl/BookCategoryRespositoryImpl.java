@@ -29,7 +29,7 @@ public class BookCategoryRespositoryImpl
         BookCategoryEntity bookCategory = getById(id);
         if (null == bookCategory && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "图书分类ID：{} 不存在", id);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "图书分类不存在");
         }
         return bookCategory;
     }

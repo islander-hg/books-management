@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.ckg.books.management.api.menu.req.CreateMenuReq;
 import com.ckg.books.management.api.menu.req.UpdateMenuReq;
 import com.ckg.books.management.common.exception.BizErrorCodes;
+import com.ckg.books.management.common.exception.BizException;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.MenuEntity;
@@ -56,8 +57,12 @@ public class MenuOperateServiceImpl implements MenuOperateService {
                                 "未知异常导致无法新增菜单：{}", createReq.getName());
             }
 
-        } catch (DuplicateKeyException ex) {
-            verifyDataUniqueness(createReq.getParentId(), createReq.getName(), null);
+        } catch (BizException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            if (ex instanceof DuplicateKeyException) {
+                verifyDataUniqueness(createReq.getParentId(), createReq.getName(), null);
+            }
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_CREATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                     "未知异常导致无法新增菜单：{}", createReq.getName());
         }
@@ -81,8 +86,12 @@ public class MenuOperateServiceImpl implements MenuOperateService {
                         .create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                                 "未知异常导致无法修改菜单：{}", menu.getName());
             }
-        } catch (DuplicateKeyException ex) {
-            verifyDataUniqueness(menu.getParentId(), updateReq.getName(), id);
+        } catch (BizException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            if (ex instanceof DuplicateKeyException) {
+                verifyDataUniqueness(menu.getParentId(), updateReq.getName(), id);
+            }
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                     "未知异常导致无法修改菜单：{}", menu.getName());
         }
@@ -100,7 +109,7 @@ public class MenuOperateServiceImpl implements MenuOperateService {
             verifyDeletable(id);
             throw ExceptionHelper
                     .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                            "未知异常导致无法删除菜单：{}", id);
+                            "未知异常导致无法删除菜单");
         }
 
         //3. 删除关联关系

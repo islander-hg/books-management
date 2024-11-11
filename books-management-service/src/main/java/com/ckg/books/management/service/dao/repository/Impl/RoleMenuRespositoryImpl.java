@@ -59,8 +59,7 @@ public class RoleMenuRespositoryImpl
                         .eq(RoleMenuEntity::getMenuId, menuId));
         if (null == roleMenu && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST,
-                            "角色ID：{} 与菜单ID：{} 不存在关联信息", roleId, menuId);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "角色与菜单不存在关联信息");
         }
         return roleMenu;
     }

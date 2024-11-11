@@ -40,7 +40,7 @@ public class UserRespositoryImpl
         UserEntity user = getById(id);
         if (null == user && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "用户ID：{} 不存在", id);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "用户不存在");
         }
         return user;
     }
@@ -66,7 +66,7 @@ public class UserRespositoryImpl
             lambdaQueryWrapper.eq(UserEntity::getUsername, username);
         }
         if (StrUtil.isNotBlank(email)) {
-            lambdaQueryWrapper.eq(UserEntity::getEmail, email);
+            lambdaQueryWrapper.or().eq(UserEntity::getEmail, email);
         }
         return list(lambdaQueryWrapper);
     }

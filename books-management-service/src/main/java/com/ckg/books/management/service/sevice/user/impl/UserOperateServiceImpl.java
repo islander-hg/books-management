@@ -6,6 +6,7 @@ import com.ckg.books.management.api.user.req.BaseOperateUserReq;
 import com.ckg.books.management.api.user.req.CreateUserReq;
 import com.ckg.books.management.api.user.req.UpdateUserReq;
 import com.ckg.books.management.common.exception.BizErrorCodes;
+import com.ckg.books.management.common.exception.BizException;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.security.SecurityUtils;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
@@ -73,8 +74,12 @@ public class UserOperateServiceImpl implements UserOperateService {
                     // 关联角色
                     userRoleRespository
                             .insertUserRole(toBeCreatedEntity.getId(), createReq.getRoleIds());
-                } catch (DuplicateKeyException ex) {
-                    verifyDataUniqueness(createReq, createReq.getUsername(), null);
+                } catch (BizException ex) {
+                    throw ex;
+                } catch (Exception ex) {
+                    if (ex instanceof DuplicateKeyException) {
+                        verifyDataUniqueness(createReq, createReq.getUsername(), null);
+                    }
                     throw ExceptionHelper
                             .create(BizErrorCodes.UNABLE_CREATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                                     "未知异常导致无法新增用户：{}", createReq.getUsername());
@@ -113,8 +118,12 @@ public class UserOperateServiceImpl implements UserOperateService {
                     // 关联角色
                     userRoleRespository.deleteByUserId(id);
                     userRoleRespository.insertUserRole(id, updateReq.getRoleIds());
-                } catch (DuplicateKeyException ex) {
-                    verifyDataUniqueness(updateReq, null, id);
+                } catch (BizException ex) {
+                    throw ex;
+                } catch (Exception ex) {
+                    if (ex instanceof DuplicateKeyException) {
+                        verifyDataUniqueness(updateReq, null, id);
+                    }
                     throw ExceptionHelper
                             .create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                                     "未知异常导致无法修改用户：{}", user.getUsername());
@@ -134,7 +143,7 @@ public class UserOperateServiceImpl implements UserOperateService {
             userRespository.getById(id, true);
             throw ExceptionHelper
                     .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                            "未知异常导致无法删除用户：{}", id);
+                            "未知异常导致无法删除用户");
         }
 
         //2. 删除失败关系
@@ -187,7 +196,7 @@ public class UserOperateServiceImpl implements UserOperateService {
                 .findFirst().isPresent()) {
             throw ExceptionHelper
                     .create(BizErrorCodes.TABLE_RECORD_DUPLICATE,
-                            "用户邮箱：{} 已存在", operateReq.getEmail());
+                            "用户邮箱：{} 已绑定其他用户账号", operateReq.getEmail());
         }
     }
 

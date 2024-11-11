@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.ckg.books.management.api.book.req.CreateBookCategoryReq;
 import com.ckg.books.management.api.book.req.UpdateBookCategoryReq;
 import com.ckg.books.management.common.exception.BizErrorCodes;
+import com.ckg.books.management.common.exception.BizException;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.BookCategoryEntity;
@@ -56,8 +57,12 @@ public class BookCategoryOperateServiceImpl implements BookCategoryOperateServic
                                 "未知异常导致无法新增图书分类：{}", createReq.getName());
             }
 
-        } catch (DuplicateKeyException ex) {
-            verifyDataUniqueness(createReq.getParentId(),createReq.getName(), null);
+        } catch (BizException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            if (ex instanceof DuplicateKeyException) {
+                verifyDataUniqueness(createReq.getParentId(), createReq.getName(), null);
+            }
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_CREATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                     "未知异常导致无法新增图书分类：{}", createReq.getName());
         }
@@ -85,8 +90,12 @@ public class BookCategoryOperateServiceImpl implements BookCategoryOperateServic
                         .create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                                 "未知异常导致无法修改图书分类：{}", menu.getName());
             }
-        } catch (DuplicateKeyException ex) {
-            verifyDataUniqueness(menu.getParentId(),updateReq.getName(), id);
+        } catch (BizException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            if (ex instanceof DuplicateKeyException) {
+                verifyDataUniqueness(menu.getParentId(), updateReq.getName(), id);
+            }
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                     "未知异常导致无法修改图书分类：{}", menu.getName());
         }
@@ -103,7 +112,7 @@ public class BookCategoryOperateServiceImpl implements BookCategoryOperateServic
             verifyDeletable(id);
             throw ExceptionHelper
                     .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                            "未知异常导致无法删除图书分类：{}", id);
+                            "未知异常导致无法删除图书分类");
         }
 
         //3. 删除关联关系

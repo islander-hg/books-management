@@ -30,7 +30,7 @@ public class RoleRespositoryImpl
         RoleEntity user = getById(id);
         if (null == user && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "角色ID：{} 不存在", id);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "角色不存在");
         }
         return user;
     }

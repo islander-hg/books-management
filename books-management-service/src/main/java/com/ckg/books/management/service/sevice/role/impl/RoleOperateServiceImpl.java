@@ -4,6 +4,7 @@ import com.ckg.books.management.api.role.req.BaseOperateRoleReq;
 import com.ckg.books.management.api.role.req.CreateRoleReq;
 import com.ckg.books.management.api.role.req.UpdateRoleReq;
 import com.ckg.books.management.common.exception.BizErrorCodes;
+import com.ckg.books.management.common.exception.BizException;
 import com.ckg.books.management.common.exception.ExceptionHelper;
 import com.ckg.books.management.common.utils.spring.BeanHelper;
 import com.ckg.books.management.service.dao.entity.RoleEntity;
@@ -72,8 +73,12 @@ public class RoleOperateServiceImpl implements RoleOperateService {
                     // 关联菜单
                     roleMenuRespository
                             .insertRoleMenu(toBeCreatedEntity.getId(), createReq.getMenuIds());
-                } catch (DuplicateKeyException ex) {
-                    verifyDataUniqueness(createReq, null);
+                } catch (BizException ex) {
+                    throw ex;
+                } catch (Exception ex) {
+                    if (ex instanceof DuplicateKeyException) {
+                        verifyDataUniqueness(createReq, null);
+                    }
                     throw ExceptionHelper
                             .create(BizErrorCodes.UNABLE_CREATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                                     "未知异常导致无法新增角色：{}", createReq.getName());
@@ -112,8 +117,12 @@ public class RoleOperateServiceImpl implements RoleOperateService {
                     // 关联菜单
                     roleMenuRespository.deleteByRoleId(id);
                     roleMenuRespository.insertRoleMenu(id, updateReq.getMenuIds());
-                } catch (DuplicateKeyException ex) {
-                    verifyDataUniqueness(updateReq, id);
+                } catch (BizException ex) {
+                    throw ex;
+                } catch (Exception ex) {
+                    if (ex instanceof DuplicateKeyException) {
+                        verifyDataUniqueness(updateReq, id);
+                    }
                     throw ExceptionHelper
                             .create(BizErrorCodes.UNABLE_UPDATE_TABLE_RECORD_BECAUSE_UNKNOWN,
                                     "未知异常导致无法修改角色：{}", role.getName());
@@ -133,7 +142,7 @@ public class RoleOperateServiceImpl implements RoleOperateService {
             roleRespository.getById(id, true);
             throw ExceptionHelper
                     .create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                            "未知异常导致无法删除角色：{}", id);
+                            "未知异常导致无法删除角色}");
         }
 
         //2. 删除关联关系

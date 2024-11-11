@@ -62,8 +62,7 @@ public class BookCategoryRelationRespositoryImpl
                         .eq(BookCategoryRelationEntity::getCategoryId, categoryId));
         if (null == relation && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST,
-                            "图书ID：{} 与图书分类ID：{} 不存在关联信息", bookId, categoryId);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "图书与图书分类不存在关联信息");
         }
         return relation;
     }

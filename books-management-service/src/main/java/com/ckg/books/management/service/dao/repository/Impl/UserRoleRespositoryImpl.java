@@ -57,8 +57,7 @@ public class UserRoleRespositoryImpl
                         .eq(UserRoleEntity::getRoleId, roleId));
         if (null == userRole && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST,
-                            "用户ID：{} 与角色ID：{} 不存在关联信息", userId, roleId);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "用户角色不存在关联信息");
         }
         return userRole;
     }

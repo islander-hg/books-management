@@ -31,7 +31,7 @@ public class MenuRespositoryImpl
         MenuEntity menu = getById(id);
         if (null == menu && throwNotFoundError) {
             throw ExceptionHelper
-                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "菜单ID：{} 不存在", id);
+                    .create(BizErrorCodes.TABLE_RECORD_NOT_EXIST, "菜单不存在");
         }
         return menu;
     }

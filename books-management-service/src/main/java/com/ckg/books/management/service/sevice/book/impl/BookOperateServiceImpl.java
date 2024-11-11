@@ -100,7 +100,7 @@ public class BookOperateServiceImpl implements BookOperateService {
         if (!deleted) {
             bookRespository.getById(id, true);
             throw ExceptionHelper.create(BizErrorCodes.UNABLE_DELETE_TABLE_RECORD_BECAUSE_UNKNOWN,
-                    "未知异常导致无法删除图书：{}", id);
+                    "未知异常导致无法删除图书");
         }
         //2. 删除与分类的关联信息
         bookCategoryRelationRespository.deleteByBookId(id);
